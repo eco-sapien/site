@@ -91,10 +91,7 @@
         }
         
         .divider {
-            width: 60px;
-            height: 1px;
-            background: #333333;
-            margin: 80px 0;
+            display: none;
         }
         
         .section {
@@ -161,46 +158,96 @@
         }
         
         .metric {
-            padding: 20px;
+            padding: 25px;
             background: #050505;
             border: 1px solid #1a1a1a;
             border-radius: 4px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .metric:hover {
+            border-color: #333333;
+            transform: translateY(-2px);
         }
         
         .metric-value {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 600;
             color: #ffffff;
             margin-bottom: 8px;
         }
         
         .metric-label {
-            font-size: 14px;
-            color: #666666;
+            font-size: 13px;
+            color: #888888;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
-        .focus-areas {
-            list-style: none;
-            margin-top: 30px;
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
         
-        .focus-areas li {
-            padding: 15px 0;
-            border-bottom: 1px solid #1a1a1a;
-            color: #cccccc;
-            font-size: 16px;
+        .research-card {
+            background: linear-gradient(135deg, #0a0a0a 0%, #050505 100%);
+            border: 1px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .focus-areas li:last-child {
-            border-bottom: none;
+        .research-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #333333, #666666);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .focus-areas li:before {
-            content: "→";
-            margin-right: 15px;
-            color: #666666;
+        .research-card:hover {
+            border-color: #333333;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .research-card:hover:before {
+            opacity: 1;
+        }
+        
+        .research-icon {
+            width: 50px;
+            height: 50px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .research-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        
+        .research-card-description {
+            font-size: 15px;
+            color: #999999;
+            line-height: 1.6;
         }
         
         .contact-link {
@@ -281,6 +328,10 @@
             }
             
             .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .research-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -306,6 +357,16 @@
         
         <div class="divider"></div>
         
+        <section id="about" class="section">
+            <div class="section-title">About EcoSapien</div>
+            <h2>Our Approach</h2>
+            <p class="section-content">
+                EcoSapien combines advanced machine learning with environmental data analytics to create tools that transform how organizations approach sustainability challenges. We believe that intelligent systems can drive both environmental impact and business success, creating a pathway to truly sustainable operations at scale.
+            </p>
+        </section>
+        
+        <div class="divider"></div>
+        
         <section id="projects" class="section">
             <div class="section-title">Current Projects</div>
             
@@ -323,7 +384,7 @@
                         <div class="metric-label">Cattle Monitored</div>
                     </div>
                     <div class="metric">
-                        <div class="metric-value">Multiple</div>
+                        <div class="metric-value">8</div>
                         <div class="metric-label">Breed Analysis</div>
                     </div>
                     <div class="metric">
@@ -332,36 +393,70 @@
                     </div>
                 </div>
                 
-                <h3 style="font-size: 20px; color: #ffffff; margin: 40px 0 20px;">Research Focus Areas</h3>
+                <h3 style="font-size: 20px; color: #ffffff; margin: 50px 0 30px;">Research Focus Areas</h3>
                 
-                <ul class="focus-areas">
-                    <li><strong>Milk Yield Optimization:</strong> Documenting and analyzing milk production across different cattle breeds in response to varying organic fodder compositions, vitamin supplementation programs, and nutritional protocols</li>
+                <div class="research-grid">
+                    <div class="research-card">
+                        <div class="research-icon">🥛</div>
+                        <div class="research-card-title">Milk Yield Optimization</div>
+                        <div class="research-card-description">
+                            Documenting and analyzing milk production across 8 cattle breeds in response to varying organic fodder compositions, vitamin supplementation programs, and nutritional protocols.
+                        </div>
+                    </div>
                     
-                    <li><strong>Animal Health Monitoring:</strong> Implementing close health surveillance systems to track individual animal wellbeing, identify early intervention opportunities, and correlate health metrics with productivity outcomes</li>
+                    <div class="research-card">
+                        <div class="research-icon">💚</div>
+                        <div class="research-card-title">Animal Health Monitoring</div>
+                        <div class="research-card-description">
+                            Implementing close health surveillance systems to track individual animal wellbeing, identify early intervention opportunities, and correlate health metrics with productivity outcomes.
+                        </div>
+                    </div>
                     
-                    <li><strong>Milk Quality Analysis:</strong> Conducting detailed compositional analysis of milk quality parameters including fat content, protein levels, somatic cell counts, and nutritional profiles to optimize both animal welfare and product quality</li>
+                    <div class="research-card">
+                        <div class="research-icon">🔬</div>
+                        <div class="research-card-title">Milk Quality Analysis</div>
+                        <div class="research-card-description">
+                            Conducting detailed compositional analysis of milk quality parameters including fat content, protein levels, somatic cell counts, and nutritional profiles.
+                        </div>
+                    </div>
                     
-                    <li><strong>Environmental Impact Assessment:</strong> Monitoring sanitization processes and sewage treatment facilities to quantify waste management effectiveness and assess the impact of effluent release on surrounding soil quality and ecosystem health</li>
+                    <div class="research-card">
+                        <div class="research-icon">🧬</div>
+                        <div class="research-card-title">Genomic Tracking & Selection</div>
+                        <div class="research-card-description">
+                            Artificial insemination progeny genomic tracking and selection to optimize breeding outcomes, improve herd genetics, and enhance productivity across generations.
+                        </div>
+                    </div>
                     
-                    <li><strong>AI-Powered Expansion Planning:</strong> Leveraging machine learning analytics to identify optimal locations for sustainable business expansion that balance environmental responsibility with economic viability and growth potential</li>
+                    <div class="research-card">
+                        <div class="research-icon">🌱</div>
+                        <div class="research-card-title">Environmental Impact Assessment</div>
+                        <div class="research-card-description">
+                            Monitoring sanitization processes and sewage treatment facilities to quantify waste management effectiveness and assess the impact of effluent release on surrounding soil quality.
+                        </div>
+                    </div>
                     
-                    <li><strong>Sustainable Resource Management:</strong> Developing data-driven protocols for feed optimization, water conservation, and waste reduction that maintain herd health while minimizing ecological footprint</li>
-                </ul>
+                    <div class="research-card">
+                        <div class="research-icon">📊</div>
+                        <div class="research-card-title">AI-Powered Expansion Planning</div>
+                        <div class="research-card-description">
+                            Leveraging machine learning analytics to identify optimal locations for sustainable business expansion that balance environmental responsibility with economic viability.
+                        </div>
+                    </div>
+                    
+                    <div class="research-card">
+                        <div class="research-icon">♻️</div>
+                        <div class="research-card-title">Sustainable Resource Management</div>
+                        <div class="research-card-description">
+                            Developing data-driven protocols for feed optimization, water conservation, and waste reduction that maintain herd health while minimizing ecological footprint.
+                        </div>
+                    </div>
+                </div>
                 
-                <p class="section-content" style="margin-top: 40px;">
+                <p class="section-content" style="margin-top: 50px;">
                     This integrated approach combines traditional agricultural expertise with modern data science to create a model for environmentally conscious dairy operations. Our AI systems analyze patterns across animal health, feed efficiency, environmental conditions, and operational metrics to provide actionable insights that support both business sustainability and environmental stewardship.
                 </p>
             </div>
-        </section>
-        
-        <div class="divider"></div>
-        
-        <section id="about" class="section">
-            <div class="section-title">About EcoSapien</div>
-            <h2>Our Approach</h2>
-            <p class="section-content">
-                EcoSapien combines advanced machine learning with environmental data analytics to create tools that transform how organizations approach sustainability challenges. We believe that intelligent systems can drive both environmental impact and business success, creating a pathway to truly sustainable operations at scale.
-            </p>
         </section>
         
         <section id="contact" class="section">
