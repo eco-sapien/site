@@ -17,27 +17,61 @@
             color: #ffffff;
             background: #000000;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
+            padding: 0;
         }
         
-        .container {
-            max-width: 900px;
+        nav {
+            position: fixed;
+            top: 0;
             width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1a1a1a;
+            z-index: 1000;
+            padding: 20px 0;
         }
         
-        .header {
-            margin-bottom: 80px;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: 600;
             letter-spacing: -0.5px;
             color: #ffffff;
-            margin-bottom: 60px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: #888888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 40px 80px;
+        }
+        
+        .hero {
+            margin-bottom: 120px;
         }
         
         h1 {
@@ -49,11 +83,10 @@
             letter-spacing: -1px;
         }
         
-        .description {
+        .hero-description {
             font-size: 20px;
             color: #a0a0a0;
             line-height: 1.7;
-            margin-bottom: 60px;
             max-width: 700px;
         }
         
@@ -61,11 +94,11 @@
             width: 60px;
             height: 1px;
             background: #333333;
-            margin: 60px 0;
+            margin: 80px 0;
         }
         
         .section {
-            margin-bottom: 50px;
+            margin-bottom: 80px;
         }
         
         .section-title {
@@ -73,15 +106,101 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #666666;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-weight: 500;
+        }
+        
+        h2 {
+            font-size: 36px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
         }
         
         .section-content {
             font-size: 18px;
             color: #cccccc;
             line-height: 1.8;
-            max-width: 700px;
+            margin-bottom: 30px;
+        }
+        
+        .project-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .project-card:hover {
+            border-color: #333333;
+        }
+        
+        .project-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        
+        .project-meta {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .metric {
+            padding: 20px;
+            background: #050505;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .focus-areas {
+            list-style: none;
+            margin-top: 30px;
+        }
+        
+        .focus-areas li {
+            padding: 15px 0;
+            border-bottom: 1px solid #1a1a1a;
+            color: #cccccc;
+            font-size: 16px;
+        }
+        
+        .focus-areas li:last-child {
+            border-bottom: none;
+        }
+        
+        .focus-areas li:before {
+            content: "→";
+            margin-right: 15px;
+            color: #666666;
         }
         
         .contact-link {
@@ -102,7 +221,7 @@
         }
         
         .footer {
-            margin-top: 100px;
+            margin-top: 120px;
             padding-top: 40px;
             border-top: 1px solid #1a1a1a;
         }
@@ -125,11 +244,31 @@
         }
         
         @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .nav-links a {
+                font-size: 12px;
+            }
+            
+            .container {
+                padding: 100px 20px 60px;
+            }
+            
             h1 {
                 font-size: 36px;
             }
             
-            .description {
+            h2 {
+                font-size: 28px;
+            }
+            
+            .hero-description {
                 font-size: 18px;
             }
             
@@ -137,38 +276,125 @@
                 font-size: 16px;
             }
             
-            .logo {
-                margin-bottom: 40px;
+            .project-card {
+                padding: 30px 20px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
+    <nav>
+        <div class="nav-container">
             <div class="logo">EcoSapien</div>
-            <h1>Building intelligent systems for environmental impact</h1>
-            <p class="description">We develop AI-powered solutions that enable organizations to make data-driven decisions for sustainability and environmental outcomes.</p>
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
         </div>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="hero">
+            <h1>Building intelligent systems for environmental impact</h1>
+            <p class="hero-description">We develop AI-powered solutions that enable organizations to make data-driven decisions for sustainability and environmental outcomes across agriculture, waste management, and resource optimization.</p>
+        </section>
         
         <div class="divider"></div>
         
-        <div class="section">
-            <div class="section-title">What We Do</div>
-            <p class="section-content">EcoSapien combines advanced machine learning with environmental data analytics to create tools that transform how organizations approach sustainability challenges. Our platform leverages cutting-edge AI to deliver actionable insights at scale.</p>
-        </div>
+        <section id="projects" class="section">
+            <div class="section-title">Current Projects</div>
+            
+            <div class="project-card">
+                <div class="project-title">Sustainable Dairy Operations & Environmental Impact</div>
+                <div class="project-meta">Agriculture · Environmental Monitoring · AI Analytics</div>
+                
+                <p class="section-content">
+                    We are conducting comprehensive research and optimization of dairy operations with a focus on sustainable practices and environmental stewardship. Our project monitors over 100 head of cattle across multiple breeds, leveraging data analytics and AI to optimize animal health, productivity, and environmental impact.
+                </p>
+                
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-value">100+</div>
+                        <div class="metric-label">Cattle Monitored</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Multiple</div>
+                        <div class="metric-label">Breed Analysis</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Real-time</div>
+                        <div class="metric-label">Health Tracking</div>
+                    </div>
+                </div>
+                
+                <h3 style="font-size: 20px; color: #ffffff; margin: 40px 0 20px;">Research Focus Areas</h3>
+                
+                <ul class="focus-areas">
+                    <li><strong>Milk Yield Optimization:</strong> Documenting and analyzing milk production across different cattle breeds in response to varying organic fodder compositions, vitamin supplementation programs, and nutritional protocols</li>
+                    
+                    <li><strong>Animal Health Monitoring:</strong> Implementing close health surveillance systems to track individual animal wellbeing, identify early intervention opportunities, and correlate health metrics with productivity outcomes</li>
+                    
+                    <li><strong>Milk Quality Analysis:</strong> Conducting detailed compositional analysis of milk quality parameters including fat content, protein levels, somatic cell counts, and nutritional profiles to optimize both animal welfare and product quality</li>
+                    
+                    <li><strong>Environmental Impact Assessment:</strong> Monitoring sanitization processes and sewage treatment facilities to quantify waste management effectiveness and assess the impact of effluent release on surrounding soil quality and ecosystem health</li>
+                    
+                    <li><strong>AI-Powered Expansion Planning:</strong> Leveraging machine learning analytics to identify optimal locations for sustainable business expansion that balance environmental responsibility with economic viability and growth potential</li>
+                    
+                    <li><strong>Sustainable Resource Management:</strong> Developing data-driven protocols for feed optimization, water conservation, and waste reduction that maintain herd health while minimizing ecological footprint</li>
+                </ul>
+                
+                <p class="section-content" style="margin-top: 40px;">
+                    This integrated approach combines traditional agricultural expertise with modern data science to create a model for environmentally conscious dairy operations. Our AI systems analyze patterns across animal health, feed efficiency, environmental conditions, and operational metrics to provide actionable insights that support both business sustainability and environmental stewardship.
+                </p>
+            </div>
+        </section>
         
-        <div class="section">
-            <div class="section-title">Status</div>
-            <p class="section-content">Currently in development. Building our core platform and establishing partnerships with early adopters in the sustainability space.</p>
-        </div>
+        <div class="divider"></div>
         
-        <a href="mailto:shubham@ecosapien.de" class="contact-link">Get in Touch</a>
+        <section id="about" class="section">
+            <div class="section-title">About EcoSapien</div>
+            <h2>Our Approach</h2>
+            <p class="section-content">
+                EcoSapien combines advanced machine learning with environmental data analytics to create tools that transform how organizations approach sustainability challenges. We believe that intelligent systems can drive both environmental impact and business success, creating a pathway to truly sustainable operations at scale.
+            </p>
+        </section>
+        
+        <section id="contact" class="section">
+            <div class="section-title">Get in Touch</div>
+            <p class="section-content">
+                Interested in learning more about our work or exploring potential collaborations? We're always open to connecting with organizations committed to sustainable innovation.
+            </p>
+            <a href="mailto:shubham@ecosapien.de" class="contact-link">Contact Us</a>
+        </section>
         
         <div class="footer">
             <a href="mailto:shubham@ecosapien.de">shubham@ecosapien.de</a>
             <p class="footer-text">© 2026 EcoSapien</p>
         </div>
     </div>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                // Update active state
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
