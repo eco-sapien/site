@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#000000"/>
+  <path d="M18 44 Q18 20 38 14" stroke="#4ade80" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M38 14 Q50 12 48 24 Q46 34 34 30 Q42 28 42 20 Q40 14 38 14Z" fill="#4ade80"/>
+  <text x="14" y="50" font-family="system-ui, sans-serif" font-weight="700" font-size="26" fill="#ffffff">es</text>
+</svg>
