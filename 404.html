@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | EcoSapien</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .error-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: -4px;
+        }
+
+        .error-message {
+            font-size: 24px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .error-description {
+            font-size: 16px;
+            color: #888888;
+            max-width: 440px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .back-home {
+            display: inline-block;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 14px 28px;
+            border: 1px solid #333333;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            border-color: #666666;
+            background: #0a0a0a;
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 80px;
+            }
+
+            .error-message {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">EcoSapien</div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/#projects">Projects</a>
+                <a href="/#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="error-page">
+        <div class="error-code">404</div>
+        <div class="error-message">Page not found</div>
+        <p class="error-description">The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+        <a href="/" class="back-home">Back to Home</a>
+    </div>
+</body>
+</html>
