@@ -24,11 +24,32 @@ Research and optimization of dairy operations with a focus on sustainable practi
 - **AI-Powered Expansion Planning** — ML-driven identification of optimal locations for sustainable growth
 - **Sustainable Resource Management** — Data-driven feed optimization, water conservation, and waste reduction
 
+## Project Structure
+
+```
+site/
+├── assets/
+│   └── favicon.svg         # Branded SVG favicon
+├── css/
+│   └── style.css           # Main stylesheet
+├── js/
+│   └── main.js             # Navigation and interactions
+├── index.html              # Main page (markup + SEO meta tags)
+├── 404.html                # Custom error page
+├── robots.txt              # Search engine + AI crawler rules
+├── sitemap.xml             # Sitemap for search indexing
+├── llms.txt                # AI/LLM discoverability
+├── CNAME                   # Custom domain config
+└── LICENSE                 # MIT License
+```
+
 ## Tech Stack
 
 - Static single-page site hosted on [GitHub Pages](https://pages.github.com/)
 - Custom domain via CNAME (`www.ecosapien.de`)
 - Vanilla HTML/CSS/JS — no build tools or dependencies
+- SEO optimized with JSON-LD structured data, Open Graph, and Twitter Cards
+- AI-discoverable via `llms.txt` and Dublin Core meta tags
 
 ## Contact
 
