@@ -100,18 +100,20 @@
     <link rel="alternate" type="application/llms+txt" href="https://www.ecosapien.de/llms.txt">
 </head>
 <body>
-    <nav>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav aria-label="Main navigation">
         <div class="nav-container">
             <div class="logo">EcoSapien</div>
-            <div class="nav-links">
-                <a href="#home" class="active">Home</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+            <div class="nav-links" role="list">
+                <a href="#home" class="active" aria-current="page" role="listitem">Home</a>
+                <a href="#projects" role="listitem">Projects</a>
+                <a href="#contact" role="listitem">Contact</a>
             </div>
         </div>
     </nav>
 
-    <div class="container">
+    <main id="main-content" class="container">
         <section id="home" class="hero">
             <h1>Building intelligent systems for environmental impact</h1>
             <p class="hero-description">We develop AI-powered solutions that enable organizations to make data-driven decisions for sustainability and environmental outcomes across agriculture, waste management, and resource optimization.</p>
@@ -159,7 +161,7 @@
 
                 <div class="research-grid">
                     <div class="research-card">
-                        <div class="research-icon">🥛</div>
+                        <div class="research-icon" role="img" aria-label="Milk">🥛</div>
                         <div class="research-card-title">Milk Yield Optimization</div>
                         <div class="research-card-description">
                             Documenting and analyzing milk production across 8 cattle breeds in response to varying organic fodder compositions, vitamin supplementation programs, and nutritional protocols.
@@ -167,7 +169,7 @@
                     </div>
 
                     <div class="research-card">
-                        <div class="research-icon">💚</div>
+                        <div class="research-icon" role="img" aria-label="Health">💚</div>
                         <div class="research-card-title">Animal Health Monitoring</div>
                         <div class="research-card-description">
                             Implementing close health surveillance systems to track individual animal wellbeing, identify early intervention opportunities, and correlate health metrics with productivity outcomes.
@@ -175,7 +177,7 @@
                     </div>
 
                     <div class="research-card">
-                        <div class="research-icon">🔬</div>
+                        <div class="research-icon" role="img" aria-label="Research">🔬</div>
                         <div class="research-card-title">Milk Quality Analysis</div>
                         <div class="research-card-description">
                             Conducting detailed compositional analysis of milk quality parameters including fat content, protein levels, somatic cell counts, and nutritional profiles.
@@ -183,7 +185,7 @@
                     </div>
 
                     <div class="research-card">
-                        <div class="research-icon">🧬</div>
+                        <div class="research-icon" role="img" aria-label="Genomics">🧬</div>
                         <div class="research-card-title">Genomic Tracking & Selection</div>
                         <div class="research-card-description">
                             Artificial insemination progeny genomic tracking and selection to optimize breeding outcomes, improve herd genetics, and enhance productivity across generations.
@@ -191,7 +193,7 @@
                     </div>
 
                     <div class="research-card">
-                        <div class="research-icon">🌱</div>
+                        <div class="research-icon" role="img" aria-label="Environment">🌱</div>
                         <div class="research-card-title">Environmental Impact Assessment</div>
                         <div class="research-card-description">
                             Monitoring sanitization processes and sewage treatment facilities to quantify waste management effectiveness and assess the impact of effluent release on surrounding soil quality.
@@ -199,7 +201,7 @@
                     </div>
 
                     <div class="research-card">
-                        <div class="research-icon">📊</div>
+                        <div class="research-icon" role="img" aria-label="Analytics">📊</div>
                         <div class="research-card-title">AI-Powered Expansion Planning</div>
                         <div class="research-card-description">
                             Leveraging machine learning analytics to identify optimal locations for sustainable business expansion that balance environmental responsibility with economic viability.
@@ -207,7 +209,7 @@
                     </div>
 
                     <div class="research-card">
-                        <div class="research-icon">♻️</div>
+                        <div class="research-icon" role="img" aria-label="Sustainability">♻️</div>
                         <div class="research-card-title">Sustainable Resource Management</div>
                         <div class="research-card-description">
                             Developing data-driven protocols for feed optimization, water conservation, and waste reduction that maintain herd health while minimizing ecological footprint.
@@ -226,14 +228,14 @@
             <p class="section-content">
                 Interested in learning more about our work or exploring potential collaborations? We're always open to connecting with organizations committed to sustainable innovation.
             </p>
-            <a href="mailto:shubham@ecosapien.de" class="contact-link">Contact Us</a>
+            <a href="mailto:shubham@ecosapien.de" class="contact-link" aria-label="Send an email to EcoSapien">Contact Us</a>
         </section>
 
-        <div class="footer">
-            <a href="mailto:shubham@ecosapien.de">shubham@ecosapien.de</a>
+        <footer class="footer" role="contentinfo">
+            <a href="mailto:shubham@ecosapien.de" aria-label="Email shubham@ecosapien.de">shubham@ecosapien.de</a>
             <p class="footer-text">© 2026 EcoSapien</p>
-        </div>
-    </div>
+        </footer>
+    </main>
 
     <script src="/js/main.js"></script>
 </body>
