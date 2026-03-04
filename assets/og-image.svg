@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#141414" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Green accent line at top -->
+  <rect x="0" y="0" width="1200" height="4" fill="#4ade80"/>
+
+  <!-- Favicon mark (larger version) -->
+  <circle cx="100" cy="200" r="28" fill="#4ade80"/>
+  <line x1="100" y1="228" x2="100" y2="340" stroke="#4ade80" stroke-width="8" stroke-linecap="round"/>
+  <line x1="100" y1="260" x2="140" y2="250" stroke="#4ade80" stroke-width="6" stroke-linecap="round"/>
+  <line x1="100" y1="290" x2="135" y2="286" stroke="#4ade80" stroke-width="6" stroke-linecap="round"/>
+  <line x1="100" y1="340" x2="140" y2="340" stroke="#4ade80" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Company name -->
+  <text x="180" y="290" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="700" font-size="72" fill="#ffffff" letter-spacing="-2">EcoSapien</text>
+
+  <!-- Tagline -->
+  <text x="100" y="420" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="400" font-size="32" fill="#888888">AI-powered solutions for sustainable</text>
+  <text x="100" y="465" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="400" font-size="32" fill="#888888">environmental impact</text>
+
+  <!-- URL -->
+  <text x="100" y="560" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="500" font-size="24" fill="#4ade80">www.ecosapien.de</text>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="626" width="1200" height="4" fill="#4ade80"/>
+</svg>
