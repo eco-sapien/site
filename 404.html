@@ -69,22 +69,24 @@
     </style>
 </head>
 <body>
-    <nav>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav aria-label="Main navigation">
         <div class="nav-container">
             <div class="logo">EcoSapien</div>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/#projects">Projects</a>
-                <a href="/#contact">Contact</a>
+            <div class="nav-links" role="list">
+                <a href="/" role="listitem">Home</a>
+                <a href="/#projects" role="listitem">Projects</a>
+                <a href="/#contact" role="listitem">Contact</a>
             </div>
         </div>
     </nav>
 
-    <div class="error-page">
-        <div class="error-code">404</div>
-        <div class="error-message">Page not found</div>
+    <main id="main-content" class="error-page" role="main">
+        <h1 class="error-code" aria-hidden="true">404</h1>
+        <h2 class="error-message">Page not found</h2>
         <p class="error-description">The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
-        <a href="/" class="back-home">Back to Home</a>
-    </div>
+        <a href="/" class="back-home" aria-label="Return to the homepage">Back to Home</a>
+    </main>
 </body>
 </html>
