@@ -6,9 +6,15 @@ The homepage presents watercolour, charcoal, embroidery and filigree-wire jewell
 
 ## Study applications
 
-The [Applications page](https://www.ecosapien.de/applications.html) publishes the 24-programme research comparison alongside the portfolio. Search by school, programme or material; filter by country and research priority; follow the official admissions links; or download the CSV.
+The [Art application page](https://www.ecosapien.de/applications.html) publishes the 24-programme European art research comparison alongside the portfolio. Search by school, programme or material; filter by country and research priority; follow the official admissions links; or download the CSV.
 
 The research was checked on 1 October 2026. Fees generally refer to 2026–27 and the ordinary non-EU fee category. Pending dates, uncertain qualification equivalence and unverified costs remain explicitly marked. The page does not submit applications.
+
+The [All applications page](https://www.ecosapien.de/all-applications.html) adds a broad German public-university master's comparison for a Home Science / interior design background. The research snapshot is **4 October 2026**. Each route records the subject and qualification conditions, English/German requirements, intake, deadline evidence, tuition, semester contribution, additional costs and official sources. Courses needing an IELTS retake remain visible; mandatory work-experience barriers are separated. No suitable open winter 2026/27 route was verified for the stated profile. This is not an admission decision or a complete census of every German programme.
+
+Search and filter by subject, intake, language and tuition. Save a shortlist, application stages and notes in the current browser. **Export filtered CSV + notes** includes all matching records, including cards beyond the first visible page. **Back up progress** downloads a JSON file that can be restored on another browser/device. These edits never publish to GitHub. Clearing browser storage removes local progress. The standalone offline HTML contains the research and tracker; move personal notes with the separate progress backup.
+
+The maintained dataset is `data/all-applications.json`. To update the comparison, edit that file, review the sources and run `python3 tools/build_applications.py`. This regenerates `all-applications.html`, `all-applications.csv` (UTF-8 BOM for Excel) and `all-applications-offline.html`. Keep published dates separate from projected annual dates; do not silently treat an unknown fee as zero. `assets/all-applications.js` handles local progress and filters; `assets/all-applications.css` extends the existing application-page theme.
 
 ## Update your portfolio
 
@@ -26,9 +32,13 @@ Keep your JSON backup and original photographs. Clearing browser storage can rem
 ## Files
 
 - index.html: public portfolio; styles, scripts and portfolio data are embedded.
-- studio.html: browser editor and export tool; exported pages retain the Applications navigation link.
-- applications.html: searchable study routes and official application information.
-- programmes.csv: the downloadable comparison.
+- studio.html: browser editor and export tool; exported pages retain both application navigation links.
+- applications.html: European art study routes and official application information.
+- programmes.csv: the downloadable art comparison.
+- all-applications.html: German public-university master's comparison and local application tracker.
+- all-applications.csv and all-applications-offline.html: full research downloads.
+- data/all-applications.json and tools/build_applications.py: maintained research data and dependency-free generator.
+- assets/all-applications.css and assets/all-applications.js: master's comparison and tracker.
 - assets/applications.css and assets/applications.js: application-page presentation and filters.
 - 404.html: missing-page screen.
 - assets/favicon.svg: existing EcoSapien mark in the portfolio colours.
