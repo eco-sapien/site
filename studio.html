@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EcoSapien · Selected works</title>
+<title>EcoSapien · Portfolio studio</title>
 <meta name="description" content="Watercolour, charcoal, embroidery and filigree-wire jewellery. A portfolio across paper, thread and wire.">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#f4f2eb">
 <link rel="canonical" href="https://www.ecosapien.de/">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -24,21 +24,21 @@ dialog{border:1px solid var(--line);border-radius:6px;background:#fffef9;color:v
 @media print{@page{size:A4;margin:16mm}body{background:white;color:black}.studio,.editor,.filters,.grid,.section-top,.help,nav,dialog,#return{display:none!important}.wrap{padding:0;max-width:none}.hero{padding:2rem 0;gap:2rem}h1{font-size:40pt}.intro{font-size:11pt}.print-pages{display:block}.print-work{break-before:page}.print-work img{max-height:160mm;width:100%;object-fit:contain}.print-work p{font-size:10pt;line-height:1.6;white-space:pre-line}.print-work figure{break-inside:avoid}.about{break-before:page;display:block;margin-top:1rem}.about h2{margin-bottom:1rem}.about-copy{font-size:12pt}}
 </style>
 </head>
-<body data-editable="false" data-preview="false">
+<body data-editable="true" data-preview="false">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
+<div class="studio editor"><div><strong>Your portfolio studio</strong><small>Changes are saved in this browser only. Download the website and upload index.html to GitHub to publish. Save a backup to keep an editable copy.</small><small id="status" role="status" aria-live="polite">Opening draft…</small></div><div class="actions"><a href="./">View published site</a><button id="preview">Preview</button><button id="export" class="primary">Download website</button><button id="backup">Save backup</button><button id="restore">Restore backup</button><button id="print">Print / PDF proof</button></div></div>
 <div class="wrap">
 <header><a href="./" id="name">EcoSapien</a><nav aria-label="Main"><a href="#works">Works</a><a href="#about">About</a></nav></header>
 <main id="main-content">
-<section class="hero"><div><p class="eyebrow">Selected works</p><h1 id="title">Paper, thread,<br>and wire.</h1></div><div class="intro"><p id="intro">Watercolour, charcoal, embroidery and filigree-wire jewellery.</p></div></section>
-<section id="works" aria-labelledby="works-title"><div class="section-top"><h2 id="works-title">A closer look</h2></div><div id="filters" class="filters" aria-label="Filter works" data-generated></div><div id="grid" class="grid" data-generated></div><div id="print-pages" class="print-pages" data-generated></div></section>
+<section class="hero"><div><p class="eyebrow">Selected works</p><h1 id="title">Paper, thread,<br>and wire.</h1></div><div class="intro"><p id="intro">Watercolour, charcoal, embroidery and filigree-wire jewellery.</p><button class="editor" id="profile-edit">Edit introduction &amp; about</button></div></section>
+<section id="works" aria-labelledby="works-title"><div class="section-top"><h2 id="works-title">A closer look</h2><button class="primary editor" id="add">+ Add a work</button></div><div id="filters" class="filters" aria-label="Filter works" data-generated></div><div id="grid" class="grid" data-generated></div><p class="help editor">Full work → material details → process. Add your photographs and write captions in your own words. Photographs are resized for the website; keep your originals separately. A PDF proof is a starting point: each university sets its own portfolio limits.</p><div id="print-pages" class="print-pages" data-generated></div></section>
 <section id="about" class="about"><h2>About the practice</h2><div><p id="about-copy" class="about-copy">A self-taught practice across painting, drawing, embroidery and wire jewellery.</p><a id="contact" hidden></a></div></section>
 </main><footer><span id="footer-name">EcoSapien · Selected works</span><span>Paper / Thread / Wire <a class="studio-link" href="studio.html">Portfolio studio</a></span></footer>
 </div>
-
-
-
-
+<button id="return">Return to editing</button>
+<input id="restore-file" type="file" accept="application/json,.json" hidden>
+<dialog id="profile-dialog" aria-labelledby="profile-heading"><div class="dialog-head"><h2 id="profile-heading">Introduce your practice</h2><button type="button" data-close>Close</button></div><form id="profile-form"><div class="fields"><label>Name<input name="name" required maxlength="120"></label><label>Contact email (optional)<input name="email" type="email" maxlength="200"></label><label class="wide">Portfolio title<textarea name="title" required maxlength="160"></textarea></label><label class="wide">Short introduction<textarea name="intro" maxlength="1500"></textarea></label><label class="wide">About your practice<textarea name="about" maxlength="5000"></textarea></label></div><div class="actions"><button class="primary" type="submit">Save introduction</button></div></form></dialog>
+<dialog id="work-dialog" aria-labelledby="work-heading"><div class="dialog-head"><h2 id="work-heading">Add a work</h2><button type="button" data-close>Close</button></div><form id="work-form"><div class="fields"><label class="wide">Title<input name="title" required maxlength="200"></label><label>Category<select name="category"><option>Paper</option><option>Thread</option><option>Wire</option><option>Mixed</option></select></label><label>Year<input name="year" maxlength="30"></label><label>Medium / materials<input name="medium" maxlength="250" placeholder="e.g. charcoal on paper"></label><label>Dimensions<input name="dimensions" maxlength="150" placeholder="e.g. 30 × 40 cm"></label><label class="wide">What is the work exploring?<textarea name="description" maxlength="5000"></textarea></label><label class="wide">Process and changes<textarea name="process" maxlength="5000" placeholder="Describe a material experiment, a decision, or what changed as you worked."></textarea></label><label class="wide">Credits / collaborators (optional)<input name="credits" maxlength="1000"></label><label class="wide">Photographs: full work first, then details or process<input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple></label></div><p class="help">Up to 12 JPEG, PNG or WebP photographs per work, 25 MB per original. The first photograph becomes the cover. Add captions below.</p><div id="photo-list" data-generated></div><p id="form-status" role="status"></p><div class="actions"><button id="save-work" type="submit" class="primary">Save work</button></div></form></dialog>
 <dialog id="viewer" aria-labelledby="view-title"><div class="dialog-head"><h2 id="view-title"></h2><button data-close>Close</button></div><div id="view-content" data-generated></div></dialog>
 <noscript><p class="wrap">Enable JavaScript to browse the gallery or edit a local portfolio draft.</p></noscript>
 <script id="portfolio-data" type="application/json">{"version": 1, "profile": {"name": "EcoSapien", "title": "Paper, thread,\nand wire.", "intro": "Watercolour, charcoal, embroidery and filigree-wire jewellery.", "about": "A self-taught practice across painting, drawing, embroidery and wire jewellery.", "email": ""}, "works": []}</script>
