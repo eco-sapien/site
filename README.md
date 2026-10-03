@@ -4,6 +4,12 @@ Artist portfolio hosted on GitHub Pages at [www.ecosapien.de](https://www.ecosap
 
 The homepage presents watercolour, charcoal, embroidery and filigree-wire jewellery. Artwork photographs have not been supplied yet, so the first published version identifies the three collections as being prepared.
 
+## Study applications
+
+The [Applications page](https://www.ecosapien.de/applications.html) publishes the 24-programme research comparison alongside the portfolio. Search by school, programme or material; filter by country and research priority; follow the official admissions links; or download the CSV.
+
+The research was checked on 1 October 2026. Fees generally refer to 2026–27 and the ordinary non-EU fee category. Pending dates, uncertain qualification equivalence and unverified costs remain explicitly marked. The page does not submit applications.
+
 ## Update your portfolio
 
 1. Open [the portfolio studio](https://www.ecosapien.de/studio.html).
@@ -20,7 +26,10 @@ Keep your JSON backup and original photographs. Clearing browser storage can rem
 ## Files
 
 - index.html: public portfolio; styles, scripts and portfolio data are embedded.
-- studio.html: browser editor and export tool.
+- studio.html: browser editor and export tool; exported pages retain the Applications navigation link.
+- applications.html: searchable study routes and official application information.
+- programmes.csv: the downloadable comparison.
+- assets/applications.css and assets/applications.js: application-page presentation and filters.
 - 404.html: missing-page screen.
 - assets/favicon.svg: existing EcoSapien mark in the portfolio colours.
 - assets/og-image.svg: updated brand graphic.

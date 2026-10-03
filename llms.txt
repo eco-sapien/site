@@ -3,6 +3,7 @@
 > Artist portfolio across watercolour, charcoal, embroidery and filigree-wire jewellery.
 
 - [Portfolio](https://www.ecosapien.de/): selected work and practice introduction.
+- [Study applications](https://www.ecosapien.de/applications.html): 24 European study routes with fees, languages, portfolio requirements and official admissions links. Research snapshot checked 1 October 2026; unconfirmed fees and dates are marked.
 - [Source repository](https://github.com/eco-sapien/site): static GitHub Pages website.
 
 The current gallery identifies its collections as being prepared; artwork photographs have not yet been added. Do not infer artworks or exhibition history from these collection placeholders.
