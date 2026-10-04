@@ -3,7 +3,7 @@
   "checked_at": "2026-10-04",
   "scope": "German public-university master’s routes potentially related to Home Science / interior design, with separate language, subject, experience and cost barriers. A screening resource, not an admission decision or an exhaustive national census.",
   "method": "Screened the 1,585 listings returned by the DAAD English-master’s search by subject/title, inspected 126 provider detail records, and added two direct-university routes. Also checked relevant mixed-language/art/food listings. Direct university sources override generic database labels where verified.",
-  "profile": "Indian citizen with a German student residence permit; three-year Bachelor in Home Science, minor in interior design, first class; no additional German credits and no work/internship experience. IELTS 6.0 with willingness to retake; German A1. Exact awarding institution, percentage, transcript credits and IELTS type/date/components remain unconfirmed.",
+  "profile": "Indian citizen with a German student residence permit; three-year Bachelor in Home Science, minor in interior design, first class; no additional German credits. Management employment has since been confirmed; specialist relevance, dates/hours and supporting evidence must be assessed individually. IELTS retake is an option; German A1. Degree recognition, grading scale, transcript credits and current accepted English evidence remain to be established. Personal CV and contact details are kept outside the public dataset.",
   "fee_assumption": "Ordinary Indian / non-EU fee category for planning; any statutory exemption needs individual confirmation. A German student residence permit alone does not establish an exemption. Living costs are excluded.",
   "winter_finding": "No suitable open winter 2026/27 application route was verified for this profile among the programmes checked as of 4 October 2026.",
   "records": [
@@ -365,9 +365,9 @@
       "field": "Education & family",
       "assessment": "Start here",
       "fit": "A Home Science degree with child development, family studies or early-childhood modules deserves a subject-fit enquiry.",
-      "requirements": "At least 180 ECTS in social work, early childhood education or an academically related field. Choose the English track. Hybrid delivery still includes required on-campus teaching on Thursdays and Fridays.",
+      "requirements": "At least 180 ECTS in social work, early childhood education or an academically related field. English track: two- to three-page essay on motivation, subject aptitude, professional biography/self-image and future work; tabular CV. Hybrid study includes compulsory campus attendance.",
       "ielts_min": 6,
-      "english": "English track: B2; IELTS Academic 6.0.",
+      "english": "English track B2: IELTS at least 6.0 in every section, or other accepted certificate / documented English-only degree.",
       "german": "None for the English track.",
       "tuition_eur": 0,
       "tuition_note": "€0 tuition; semester contribution and any listed extra charges are separate.",
@@ -377,8 +377,8 @@
       "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
       "intake": "Winter 2027/28",
       "deadline": null,
-      "date_basis": "2027 dates not published in checked sources",
-      "window": "The published 2026 window was 15 May–22 June. The 2027 dates were not confirmed in the sources checked.",
+      "date_basis": "2027 English-track date under revision; exact date unconfirmed",
+      "window": "Published general window: 15 May–22 June. University now signals the English-track deadline will most likely move to March 2027; exact date unconfirmed. Check before relying on June.",
       "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
       "programme_url": "https://www.fh-potsdam.de/en/study-further-education/degree-programs/sustainable-social-work-childhood-and-family-ma",
       "application_url": "https://www.studentenwerk-potsdam.de/wohnen/online-bewerben/",
@@ -416,7 +416,7 @@
       "field": "Nutrition & food",
       "assessment": "Start here",
       "fit": "Accepts a broad mix of nutrition, health, natural and social science backgrounds, subject to its aptitude assessment.",
-      "requirements": "Relevant recognised first degree, German grade 2.5 or better. The aptitude assessment reviews the science/economics competencies in the transcript; the degree title alone is insufficient.",
+      "requirements": "Relevant recognised first degree and German grade 2.5 or better. Aptitude process assesses subject preparation and a course-specific competence/motivation letter of maximum two pages, plus CV. The degree title alone is insufficient.",
       "ielts_min": 6,
       "english": "B2; IELTS Academic 6.0.",
       "german": "A1 certificate by the end of the first year; confirm whether your existing A1 proof is accepted.",
@@ -458,6 +458,53 @@
       "language_fit": "Score within 6.0",
       "candidate": true,
       "rank": 7
+    },
+    {
+      "id": "daad-4057",
+      "daad_id": "4057",
+      "programme": "Master of Arts in Integrated Design",
+      "university": "Anhalt University of Applied Sciences",
+      "city": "Dessau-Roßlau",
+      "degree": "Master of Arts",
+      "duration": "4 semesters",
+      "mode": "On campus / university-based; check programme format",
+      "field": "Design & art",
+      "assessment": "Portfolio review",
+      "fit": "A design-related degree, portfolio and at least one year of professional experience are required. Confirmed management work may address duration; ask whether its relevance is accepted. IELTS 7 and tuition also apply.",
+      "requirements": "Related design first degree of at least 180 ECTS, portfolio/aptitude assessment and at least one year of professional experience.",
+      "ielts_min": 7.0,
+      "english": "IELTS Academic 7; confirm component minimums and certificate validity.",
+      "german": "No minimum language level required",
+      "tuition_eur": 800,
+      "tuition_note": "€800 per semester in the assumed non-EU category; exemptions require confirmation.",
+      "semester_eur": 323,
+      "semester_note": "Approx. €323.00 per semester; verify the next intake rate.",
+      "extra_fees": "",
+      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
+      "intake": "Summer 2027",
+      "deadline": "2026-10-31",
+      "date_basis": "Annual pattern; next cycle unconfirmed",
+      "window": "Summer: 31 July–31 October. Winter: 15 January–30 April.",
+      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
+      "programme_url": "https://www.hs-anhalt.de/maid",
+      "application_url": "https://www.hs-anhalt.de/maid",
+      "portal_url": "https://my.uni-assist.de/",
+      "application_route": "Please apply via uni-assist .",
+      "checked_at": "2026-10-04",
+      "evidence_level": "University-supplied DAAD entry",
+      "sources": [
+        {
+          "label": "University programme",
+          "url": "https://www.hs-anhalt.de/maid"
+        },
+        {
+          "label": "DAAD provider record",
+          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/4057/"
+        }
+      ],
+      "language_fit": "Higher score / C1 assessment",
+      "candidate": true,
+      "rank": 8
     },
     {
       "id": "daad-3654",
@@ -508,7 +555,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 8
+      "rank": 9
     },
     {
       "id": "daad-9927",
@@ -522,7 +569,7 @@
       "field": "Design & art",
       "assessment": "Portfolio review",
       "fit": "Potential route if the bachelor’s content and portfolio establish a convincing relationship to design.",
-      "requirements": "Design or a design-related engineering, social-science or humanities degree; artistic/design aptitude assessment and portfolio. Use the fully English route.",
+      "requirements": "Design or a design-related engineering, social-science or humanities degree; aptitude assessment and portfolio including an approximately one-page letter of intent. For degrees below 240 ECTS, aptitude grade 1.7 or better establishes individual qualification; grades 1.8–4.0 lead to specified first-semester bridging requirements. Check the current independent-authorship declaration and use the English track.",
       "ielts_min": 5.5,
       "english": "English track: B2; IELTS Academic 5.5.",
       "german": "None for the English track.",
@@ -559,7 +606,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 9
+      "rank": 10
     },
     {
       "id": "daad-9632",
@@ -606,7 +653,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 10
+      "rank": 11
     },
     {
       "id": "daad-4489",
@@ -669,7 +716,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 11
+      "rank": 12
     },
     {
       "id": "daad-3990",
@@ -683,7 +730,7 @@
       "field": "Design & art",
       "assessment": "Portfolio review",
       "fit": "The interior design minor may support a design-focused portfolio, but does not guarantee academic suitability.",
-      "requirements": "Recognised bachelor’s degree of at least 180 ECTS; design aptitude / portfolio assessment, motivation, reference and CV. Check the current KISD brief before preparing the submission.",
+      "requirements": "Design or design-related bachelor’s degree of at least 180 ECTS; portfolio and aptitude assessment. Letter of intent: 600–900 words, focused on one thematic cluster, at most five images. CV and at least one recommendation. Each document must be 4 MB or less; use the current application brief.",
       "ielts_min": 5.5,
       "english": "IELTS Academic 5.5; confirm component minimums and certificate validity.",
       "german": "No minimum language level required",
@@ -720,7 +767,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 12
+      "rank": 13
     },
     {
       "id": "daad-11088",
@@ -734,7 +781,7 @@
       "field": "Design & art",
       "assessment": "Portfolio review",
       "fit": "A design-oriented degree and portfolio are essential. The four-semester English track can accept 180 ECTS.",
-      "requirements": "At least 180 ECTS in design or a design-oriented discipline and a passed aptitude assessment. The two-semester German fast track needs 240 ECTS and is not the route assessed here.",
+      "requirements": "At least 180 ECTS in design or a design-oriented discipline and passed aptitude assessment. English Postdigital Design studio: maximum two-page project outline, tabular CV and portfolio; interview may request up to 25 work samples. The German two-semester fast track needs 240 ECTS.",
       "ielts_min": 6,
       "english": "B2; IELTS Academic 6.0.",
       "german": "Not required for the four-semester English track.",
@@ -771,7 +818,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 13
+      "rank": 14
     },
     {
       "id": "daad-11191",
@@ -826,7 +873,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": true,
-      "rank": 14
+      "rank": 15
     },
     {
       "id": "daad-4267",
@@ -885,7 +932,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 15
+      "rank": 16
     },
     {
       "id": "daad-7128",
@@ -940,7 +987,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 16
+      "rank": 17
     },
     {
       "id": "daad-3681",
@@ -991,7 +1038,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 17
+      "rank": 18
     },
     {
       "id": "daad-4601",
@@ -1042,7 +1089,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 18
+      "rank": 19
     },
     {
       "id": "daad-4885",
@@ -1097,7 +1144,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 19
+      "rank": 20
     },
     {
       "id": "daad-9145",
@@ -1152,7 +1199,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 20
+      "rank": 21
     },
     {
       "id": "daad-6923",
@@ -1215,7 +1262,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 21
+      "rank": 22
     },
     {
       "id": "daad-10625",
@@ -1274,7 +1321,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 22
+      "rank": 23
     },
     {
       "id": "daad-9695",
@@ -1333,7 +1380,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 23
+      "rank": 24
     },
     {
       "id": "daad-9703",
@@ -1392,7 +1439,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 24
+      "rank": 25
     },
     {
       "id": "daad-4205",
@@ -1439,7 +1486,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": true,
-      "rank": 25
+      "rank": 26
     },
     {
       "id": "daad-5347",
@@ -1490,7 +1537,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 26
+      "rank": 27
     },
     {
       "id": "daad-7689",
@@ -1545,7 +1592,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 27
+      "rank": 28
     },
     {
       "id": "daad-9647",
@@ -1600,7 +1647,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": true,
-      "rank": 28
+      "rank": 29
     },
     {
       "id": "daad-4687",
@@ -1663,7 +1710,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 29
+      "rank": 30
     },
     {
       "id": "daad-4397",
@@ -1722,7 +1769,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 30
+      "rank": 31
     },
     {
       "id": "daad-4523",
@@ -1773,7 +1820,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 31
+      "rank": 32
     },
     {
       "id": "daad-4189",
@@ -1828,7 +1875,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 32
+      "rank": 33
     },
     {
       "id": "daad-8945",
@@ -1875,7 +1922,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 33
+      "rank": 34
     },
     {
       "id": "daad-9656",
@@ -1930,7 +1977,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": true,
-      "rank": 34
+      "rank": 35
     },
     {
       "id": "daad-8543",
@@ -1993,7 +2040,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 35
+      "rank": 36
     },
     {
       "id": "daad-3922",
@@ -2040,7 +2087,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 36
+      "rank": 37
     },
     {
       "id": "daad-7728",
@@ -2095,7 +2142,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 37
+      "rank": 38
     },
     {
       "id": "daad-10444",
@@ -2142,7 +2189,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": true,
-      "rank": 38
+      "rank": 39
     },
     {
       "id": "daad-4038",
@@ -2193,7 +2240,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 39
+      "rank": 40
     },
     {
       "id": "daad-8538",
@@ -2252,7 +2299,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 40
+      "rank": 41
     },
     {
       "id": "weimar-media-art",
@@ -2299,7 +2346,7 @@
           "url": "https://www.uni-weimar.de/en/art-and-design/studies/information-for-students-applicants/application/application-for-the-aptitude-test-in-the-degree-programmes-media-art-and-design/"
         }
       ],
-      "rank": 41
+      "rank": 42
     },
     {
       "id": "daad-4450",
@@ -2358,7 +2405,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 42
+      "rank": 43
     },
     {
       "id": "daad-3716",
@@ -2421,7 +2468,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 43
+      "rank": 44
     },
     {
       "id": "daad-11022",
@@ -2476,7 +2523,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 44
+      "rank": 45
     },
     {
       "id": "daad-10714",
@@ -2523,7 +2570,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 45
+      "rank": 46
     },
     {
       "id": "daad-10715",
@@ -2570,7 +2617,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 46
+      "rank": 47
     },
     {
       "id": "daad-4588",
@@ -2625,7 +2672,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 47
+      "rank": 48
     },
     {
       "id": "daad-4273",
@@ -2676,7 +2723,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 48
+      "rank": 49
     },
     {
       "id": "daad-9855",
@@ -2731,7 +2778,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 49
+      "rank": 50
     },
     {
       "id": "daad-4514",
@@ -2778,7 +2825,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 50
+      "rank": 51
     },
     {
       "id": "daad-10685",
@@ -2829,7 +2876,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 51
+      "rank": 52
     },
     {
       "id": "daad-7751",
@@ -2880,7 +2927,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 52
+      "rank": 53
     },
     {
       "id": "daad-11003",
@@ -2927,7 +2974,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 53
+      "rank": 54
     },
     {
       "id": "daad-4633",
@@ -2974,7 +3021,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 54
+      "rank": 55
     },
     {
       "id": "daad-7983",
@@ -3025,7 +3072,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 55
+      "rank": 56
     },
     {
       "id": "daad-9603",
@@ -3072,7 +3119,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 56
+      "rank": 57
     },
     {
       "id": "daad-11113",
@@ -3123,7 +3170,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 57
+      "rank": 58
     },
     {
       "id": "daad-4225",
@@ -3178,7 +3225,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 58
+      "rank": 59
     },
     {
       "id": "daad-4322",
@@ -3237,7 +3284,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 59
+      "rank": 60
     },
     {
       "id": "daad-5284",
@@ -3292,7 +3339,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 60
+      "rank": 61
     },
     {
       "id": "daad-4749",
@@ -3347,7 +3394,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 61
+      "rank": 62
     },
     {
       "id": "daad-3769",
@@ -3410,7 +3457,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 62
+      "rank": 63
     },
     {
       "id": "daad-8291",
@@ -3465,7 +3512,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 63
+      "rank": 64
     },
     {
       "id": "daad-6928",
@@ -3520,7 +3567,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 64
+      "rank": 65
     },
     {
       "id": "daad-9161",
@@ -3575,7 +3622,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 65
+      "rank": 66
     },
     {
       "id": "daad-10420",
@@ -3626,7 +3673,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 66
+      "rank": 67
     },
     {
       "id": "daad-7600",
@@ -3681,7 +3728,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 67
+      "rank": 68
     },
     {
       "id": "daad-7602",
@@ -3732,7 +3779,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 68
+      "rank": 69
     },
     {
       "id": "daad-8310",
@@ -3783,7 +3830,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 69
+      "rank": 70
     },
     {
       "id": "daad-10713",
@@ -3834,7 +3881,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 70
+      "rank": 71
     },
     {
       "id": "daad-3734",
@@ -3881,7 +3928,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 71
+      "rank": 72
     },
     {
       "id": "daad-4150",
@@ -3928,7 +3975,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 72
+      "rank": 73
     },
     {
       "id": "daad-8972",
@@ -3987,7 +4034,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 73
+      "rank": 74
     },
     {
       "id": "daad-9111",
@@ -4042,7 +4089,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 74
+      "rank": 75
     },
     {
       "id": "daad-4567",
@@ -4101,7 +4148,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 75
+      "rank": 76
     },
     {
       "id": "daad-3787",
@@ -4156,7 +4203,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 76
+      "rank": 77
     },
     {
       "id": "daad-10642",
@@ -4215,7 +4262,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 77
+      "rank": 78
     },
     {
       "id": "daad-4510",
@@ -4270,7 +4317,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 78
+      "rank": 79
     },
     {
       "id": "daad-10384",
@@ -4325,7 +4372,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 79
+      "rank": 80
     },
     {
       "id": "daad-9257",
@@ -4376,7 +4423,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 80
+      "rank": 81
     },
     {
       "id": "daad-4686",
@@ -4427,7 +4474,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 81
+      "rank": 82
     },
     {
       "id": "daad-4142",
@@ -4478,7 +4525,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 82
+      "rank": 83
     },
     {
       "id": "daad-11033",
@@ -4525,7 +4572,58 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": true,
-      "rank": 83
+      "rank": 84
+    },
+    {
+      "id": "daad-7609",
+      "daad_id": "7609",
+      "programme": "Master of Business Administration International Trade (MBA)",
+      "university": "Anhalt University of Applied Sciences",
+      "city": "Bernburg / Saale",
+      "degree": "Master of Business Administration",
+      "duration": "3 semesters",
+      "mode": "On campus / university-based; check programme format",
+      "field": "Business & entrepreneurship",
+      "assessment": "Higher fees / fee check",
+      "fit": "The three-year-bachelor route can accept at least two years of relevant work. Confirmed management employment makes this worth checking, subject to employer evidence and tuition.",
+      "requirements": "Recognised degree from any field; holders of a three-year bachelor’s degree must document at least two years of relevant professional experience. IELTS Academic 6.0.",
+      "ielts_min": 6.0,
+      "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
+      "german": "No minimum language level required",
+      "tuition_eur": 1500,
+      "tuition_note": "€1,500 per semester in the assumed non-EU category; exemptions require confirmation.",
+      "semester_eur": 96,
+      "semester_note": "Approx. €96.00 per semester; verify the next intake rate.",
+      "extra_fees": "",
+      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
+      "intake": "Winter 2027/28",
+      "deadline": "2027-07-15",
+      "date_basis": "Annual pattern; next cycle unconfirmed",
+      "window": "15 March–15 July.",
+      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
+      "programme_url": "https://www.hs-anhalt.de/nc/studieren/orientierung/studienangebot/detail/international-trade-master-of-business-administration.html",
+      "application_url": "https://www.hs-anhalt.de/studiengaenge/mtr/admission.html",
+      "portal_url": "https://my.uni-assist.de/",
+      "application_route": "Please apply via uni-assist .",
+      "checked_at": "2026-10-04",
+      "evidence_level": "University-supplied DAAD entry",
+      "sources": [
+        {
+          "label": "University programme",
+          "url": "https://www.hs-anhalt.de/nc/studieren/orientierung/studienangebot/detail/international-trade-master-of-business-administration.html"
+        },
+        {
+          "label": "website",
+          "url": "https://www.hs-anhalt.de/studiengaenge/mtr/admission.html"
+        },
+        {
+          "label": "DAAD provider record",
+          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/7609/"
+        }
+      ],
+      "language_fit": "Score within 6.0",
+      "candidate": true,
+      "rank": 85
     },
     {
       "id": "daad-4016",
@@ -4580,7 +4678,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": true,
-      "rank": 84
+      "rank": 86
     },
     {
       "id": "daad-3928",
@@ -4639,7 +4737,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 85
+      "rank": 87
     },
     {
       "id": "daad-8309",
@@ -4698,7 +4796,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 86
+      "rank": 88
     },
     {
       "id": "daad-10494",
@@ -4745,7 +4843,66 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 87
+      "rank": 89
+    },
+    {
+      "id": "daad-3726",
+      "daad_id": "3726",
+      "programme": "Master of Public Policy (MPP) at the Willy Brandt School of Public Policy",
+      "university": "University of Erfurt",
+      "city": "Erfurt",
+      "degree": "Master’s degree",
+      "duration": "4 semesters",
+      "mode": "On campus / university-based; check programme format",
+      "field": "Society & development",
+      "assessment": "Higher fees / fee check",
+      "fit": "Confirmed management experience makes the one-year work requirement worth checking. Academic/analytical fit, employer evidence, English and tuition still apply.",
+      "requirements": "Higher education entrance qualification (e.g. high school diploma, Abitur)\ncollege or university degree (e.g. Bachelor's, Master's, Diploma, state exam, etc.) with a minimum duration of six semesters, ideally in subjects from the social sciences, economics, or law\nminimum of one year of professional work experience\nabove-average grades\nstrong analytical skills and pronounced interest in solving political problems\nvery good English language proficiency",
+      "ielts_min": 6.5,
+      "english": "IELTS Academic 6.5; confirm component minimums and certificate validity.",
+      "german": "No minimum language level required",
+      "tuition_eur": 2100,
+      "tuition_note": "€2,100 per semester in the assumed non-EU category; exemptions require confirmation.",
+      "semester_eur": 300,
+      "semester_note": "Approx. €300.00 per semester; verify the next intake rate.",
+      "extra_fees": "",
+      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
+      "intake": "Winter 2027/28",
+      "deadline": "2027-04-30",
+      "date_basis": "Annual pattern; next cycle unconfirmed",
+      "window": "Visa-required route: 30 April. Applicants not needing a new visa may have 15 July; confirm your category.",
+      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
+      "programme_url": "https://www.uni-erfurt.de/en/brandtschool/studies/master-of-public-policy/master-of-public-policy",
+      "application_url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/dates-deadlines",
+      "portal_url": null,
+      "application_route": "Please check this website .",
+      "checked_at": "2026-10-04",
+      "evidence_level": "University pages and university-supplied DAAD entry",
+      "sources": [
+        {
+          "label": "SOP, CV and employer evidence",
+          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/application-process"
+        },
+        {
+          "label": "University programme",
+          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/master-of-public-policy/master-of-public-policy"
+        },
+        {
+          "label": "website",
+          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/dates-deadlines"
+        },
+        {
+          "label": "website",
+          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/tuition-financing"
+        },
+        {
+          "label": "DAAD provider record",
+          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/3726/"
+        }
+      ],
+      "language_fit": "Higher score / C1 assessment",
+      "candidate": true,
+      "rank": 90
     },
     {
       "id": "daad-3733",
@@ -4792,7 +4949,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 88
+      "rank": 91
     },
     {
       "id": "daad-4499",
@@ -4847,7 +5004,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 89
+      "rank": 92
     },
     {
       "id": "daad-3655",
@@ -4860,7 +5017,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Design & art",
       "assessment": "Requirements unresolved",
-      "fit": "The provider refers to relevant professional experience alongside an architecture/media/design degree. With no disclosed experience, clarify whether academic portfolio work can qualify before applying.",
+      "fit": "The provider refers to relevant professional experience alongside an architecture/media/design degree. Design-related professional preparation has not been established by the disclosed management work.",
       "requirements": "Students must either hold a relevant degree or equivalent certificate in architecture, media, digital arts or related fields with a scientific or artistic/design-oriented degree (Bachelor's, Master's, or \"Diplom\") and have equivalent professional experience. Additionally, students must pass the aptitude test.\nThe original document in German or in English, or a certified translation, must be submitted with the application.\nProof of English language proficiency at level B2 (minimum requirement) of the Common European Framework of Reference for Languages (CEFR) must be provided through certificates.\nApplicants whose native language is not English must provide proof of this language proficiency. Exceptions are possible if an English-language degree or a full degree from an English-speaking country can be proven.\nApplication details: Bauhaus-Universität Weimar: Application",
       "ielts_min": 6.0,
       "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
@@ -4902,7 +5059,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 90
+      "rank": 93
     },
     {
       "id": "daad-4677",
@@ -4915,7 +5072,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Design & art",
       "assessment": "Requirements unresolved",
-      "fit": "For a related non-media degree, practical media-production experience is required. No work/internship experience has been disclosed; ask whether substantial personal production work can qualify.",
+      "fit": "For a related non-media degree, practical media-production experience is required. General management work does not establish it; ask whether substantial personal production work can qualify.",
       "requirements": "The requirement for the Master's degree programme is a qualified undergraduate or graduate degree in the field of digital media. However, candidates from related fields (e.g. media design, media computer science, media management, or media studies) have a chance, provided they have practical experience in media production.\nThe grade point average should not be lower than 3.0. From a grade point average of 2.0, the applicants are also tested for their suitability.\nThe following documents are required to be submitted:\nFinal certificate of previous studies (alternative interim certificate), a diploma if the diploma was received from another university\nDetailed curriculum vitae\nStatement of motivation (personal statement) in video format, explaining the personal interest in this Master’s programme and the chosen focus (max. length of three minutes)\nPortfolio with four work samples (enclosed as links to online sources like YouTube or Vimeo in a PDF please)\nExposé for a media-practical research project in the chosen focus area.\nThe topics will be published for the winter semester in mid-April and for the summer semester in mid-October at this web address: https://em.mediencampus.h-da.de/apply/ .\n(This is where you will also find detailed, up-to-date information and a frequently asked questions section.)\nProof of practical experience (work certificates, letters of recommendation)\nWhile you should demonstrate storytelling sensibilities for the Expanded Storyworlds focus , you need to have experience with sound design and knowledge of audio editing in at least one DAW as a precondition for the Expanded Sound & Music focus . The prerequisites for the Expanded Realities focus area are programming knowledge in a game engine (e.g. c# Unity 3D or c++ with the Unreal Engine, or Python ) as well as profound knowledge in 3D workflows and environments (e.g. Blender, Maya).",
       "ielts_min": 5.5,
       "english": "IELTS Academic 5.5; confirm component minimums and certificate validity.",
@@ -4953,7 +5110,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 91
+      "rank": 94
     },
     {
       "id": "daad-6972",
@@ -4966,7 +5123,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Business & entrepreneurship",
       "assessment": "Requirements unresolved",
-      "fit": "Requires entrepreneurship/project experience and a 30-ECTS-equivalent remedy for a 180-ECTS degree. No extra credits or work/internships have been disclosed; ask whether additional study and a non-work project can qualify.",
+      "fit": "Requires entrepreneurship/project experience and a 30-ECTS-equivalent remedy for a 180-ECTS degree. Ask whether the documented management employment is relevant and can support that remedy.",
       "requirements": "First degree normally 210 ECTS. A 180-ECTS-equivalent degree needs another 30 ECTS-equivalent through approximately one year of relevant courses/work/internship. Entrepreneurship experience, project pitch/video and interview.",
       "ielts_min": 5.5,
       "english": "IELTS Academic 5.5; confirm component minimums and certificate validity.",
@@ -5000,7 +5157,58 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 92
+      "rank": 95
+    },
+    {
+      "id": "daad-9746",
+      "daad_id": "9746",
+      "programme": "Small Enterprise Promotion & Training (SEPT MBA)",
+      "university": "Leipzig University",
+      "city": "Leipzig",
+      "degree": "Master of Business Administration",
+      "duration": "4 semesters",
+      "mode": "On campus / university-based; check programme format",
+      "field": "Business & entrepreneurship",
+      "assessment": "Requirements unresolved",
+      "fit": "The Indian three-year first-class route can qualify academically. The university specifically requires two years in SME promotion/training; general management work needs a relevance assessment. Tuition applies.",
+      "requirements": "Indian three-year bachelor route: first class/division and at least 60%, or the stated equivalent. At least two years of professional experience in SME promotion and training. IELTS Academic 6.0 or accepted English-medium proof. Motivation maximum two pages, dated/signed Europass CV, employer certificates and recommendation; APS for Indian qualifications.",
+      "ielts_min": 6.0,
+      "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
+      "german": "No minimum language level required",
+      "tuition_eur": 1500,
+      "tuition_note": "€1,500 per semester in the assumed non-EU category; exemptions require confirmation.",
+      "semester_eur": 320,
+      "semester_note": "Approx. €320.00 per semester; verify the next intake rate.",
+      "extra_fees": "Do not assume EPOS eligibility: prolonged residence in Germany can affect that scholarship route.",
+      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
+      "intake": "Winter 2027/28",
+      "deadline": "2027-03-15",
+      "date_basis": "Annual pattern; next cycle unconfirmed",
+      "window": "Self-funded applications: 1 January–15 March. EPOS scholarship deadline 1 October of the previous year is separate and has passed for this cycle.",
+      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
+      "programme_url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program",
+      "application_url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program/application",
+      "portal_url": null,
+      "application_route": "Please check this website .",
+      "checked_at": "2026-10-04",
+      "evidence_level": "University pages and university-supplied DAAD entry",
+      "sources": [
+        {
+          "label": "Specialist work and application documents",
+          "url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program/application"
+        },
+        {
+          "label": "University programme",
+          "url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program"
+        },
+        {
+          "label": "DAAD provider record",
+          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/9746/"
+        }
+      ],
+      "language_fit": "Score within 6.0",
+      "candidate": true,
+      "rank": 96
     },
     {
       "id": "daad-9702",
@@ -5059,7 +5267,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 93
+      "rank": 97
     },
     {
       "id": "daad-10478",
@@ -5114,7 +5322,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 94
+      "rank": 98
     },
     {
       "id": "daad-8603",
@@ -5165,7 +5373,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": true,
-      "rank": 95
+      "rank": 99
     },
     {
       "id": "daad-4474",
@@ -5178,7 +5386,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Design & art",
       "assessment": "Not a current fit",
-      "fit": "Normally 240 ECTS and at least one year of practice are required. No extra credits or work experience are available under the stated profile.",
+      "fit": "Normally 240 ECTS and at least one year of practice are required. Additional credits and accepted design practice have not been established.",
       "requirements": "Normally 240 ECTS in architecture/design or a relevant field and one year of practice. Ask whether the published bridging option can cover the shortfall from a three-year degree.",
       "ielts_min": 7.0,
       "english": "IELTS Academic 7; confirm component minimums and certificate validity.",
@@ -5216,105 +5424,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 96
-    },
-    {
-      "id": "daad-4057",
-      "daad_id": "4057",
-      "programme": "Master of Arts in Integrated Design",
-      "university": "Anhalt University of Applied Sciences",
-      "city": "Dessau-Roßlau",
-      "degree": "Master of Arts",
-      "duration": "4 semesters",
-      "mode": "On campus / university-based; check programme format",
-      "field": "Design & art",
-      "assessment": "Not a current fit",
-      "fit": "At least one year of professional experience is mandatory; no work experience has been disclosed. IELTS can be retaken, but this does not remove the experience condition.",
-      "requirements": "Related design first degree of at least 180 ECTS, portfolio/aptitude assessment and at least one year of professional experience.",
-      "ielts_min": 7.0,
-      "english": "IELTS Academic 7; confirm component minimums and certificate validity.",
-      "german": "No minimum language level required",
-      "tuition_eur": 800,
-      "tuition_note": "€800 per semester in the assumed non-EU category; exemptions require confirmation.",
-      "semester_eur": 323,
-      "semester_note": "Approx. €323.00 per semester; verify the next intake rate.",
-      "extra_fees": "",
-      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
-      "intake": "Summer 2027",
-      "deadline": "2026-10-31",
-      "date_basis": "Annual pattern; next cycle unconfirmed",
-      "window": "Summer: 31 July–31 October. Winter: 15 January–30 April.",
-      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
-      "programme_url": "https://www.hs-anhalt.de/maid",
-      "application_url": "https://www.hs-anhalt.de/maid",
-      "portal_url": "https://my.uni-assist.de/",
-      "application_route": "Please apply via uni-assist .",
-      "checked_at": "2026-10-04",
-      "evidence_level": "University-supplied DAAD entry",
-      "sources": [
-        {
-          "label": "University programme",
-          "url": "https://www.hs-anhalt.de/maid"
-        },
-        {
-          "label": "DAAD provider record",
-          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/4057/"
-        }
-      ],
-      "language_fit": "Higher score / C1 assessment",
-      "candidate": false,
-      "rank": 97
-    },
-    {
-      "id": "daad-7609",
-      "daad_id": "7609",
-      "programme": "Master of Business Administration International Trade (MBA)",
-      "university": "Anhalt University of Applied Sciences",
-      "city": "Bernburg / Saale",
-      "degree": "Master of Business Administration",
-      "duration": "3 semesters",
-      "mode": "On campus / university-based; check programme format",
-      "field": "Business & entrepreneurship",
-      "assessment": "Not a current fit",
-      "fit": "The three-year-bachelor route requires at least two years of relevant work. No work experience has been disclosed.",
-      "requirements": "Recognised degree from any field; holders of a three-year bachelor’s degree must document at least two years of relevant professional experience. IELTS Academic 6.0.",
-      "ielts_min": 6.0,
-      "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
-      "german": "No minimum language level required",
-      "tuition_eur": 1500,
-      "tuition_note": "€1,500 per semester in the assumed non-EU category; exemptions require confirmation.",
-      "semester_eur": 96,
-      "semester_note": "Approx. €96.00 per semester; verify the next intake rate.",
-      "extra_fees": "",
-      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
-      "intake": "Winter 2027/28",
-      "deadline": "2027-07-15",
-      "date_basis": "Annual pattern; next cycle unconfirmed",
-      "window": "15 March–15 July.",
-      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
-      "programme_url": "https://www.hs-anhalt.de/nc/studieren/orientierung/studienangebot/detail/international-trade-master-of-business-administration.html",
-      "application_url": "https://www.hs-anhalt.de/studiengaenge/mtr/admission.html",
-      "portal_url": "https://my.uni-assist.de/",
-      "application_route": "Please apply via uni-assist .",
-      "checked_at": "2026-10-04",
-      "evidence_level": "University-supplied DAAD entry",
-      "sources": [
-        {
-          "label": "University programme",
-          "url": "https://www.hs-anhalt.de/nc/studieren/orientierung/studienangebot/detail/international-trade-master-of-business-administration.html"
-        },
-        {
-          "label": "website",
-          "url": "https://www.hs-anhalt.de/studiengaenge/mtr/admission.html"
-        },
-        {
-          "label": "DAAD provider record",
-          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/7609/"
-        }
-      ],
-      "language_fit": "Score within 6.0",
-      "candidate": false,
-      "rank": 98
+      "rank": 100
     },
     {
       "id": "daad-4346",
@@ -5327,7 +5437,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Design & art",
       "assessment": "Not a current fit",
-      "fit": "At least one year of work / substantial conservation preparation is required. No work experience has been disclosed.",
+      "fit": "A related conservation/architecture degree or substantial conservation preparation is needed. General management employment does not establish that specialist preparation.",
       "requirements": "Relevant architecture/design/conservation first degree, or an accepted other degree plus substantial conservation experience; at least one year of professional work.",
       "ielts_min": 6.5,
       "english": "IELTS Academic 6.5; confirm component minimums and certificate validity.",
@@ -5365,7 +5475,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 99
+      "rank": 101
     },
     {
       "id": "daad-10413",
@@ -5412,7 +5522,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 100
+      "rank": 102
     },
     {
       "id": "daad-7721",
@@ -5425,7 +5535,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Environment & sustainability",
       "assessment": "Not a current fit",
-      "fit": "For an accepted 180-ECTS degree, at least six months of relevant practical experience is required. No experience or extra credits have been disclosed.",
+      "fit": "For an accepted 180-ECTS degree, at least six months of relevant practical experience is required. Environmental relevance and the three subject-credit groups remain unverified.",
       "requirements": "Normally 210 ECTS, or 180 ECTS plus at least six months of relevant practical experience. At least 8 ECTS in each of three of these five areas: mathematics; physics/mechanics; chemistry; biology/ecology; economics. Usually grade 2.5 or better; exceptional cases need review.",
       "ielts_min": 5.5,
       "english": "IELTS Academic 5.5; confirm component minimums and certificate validity.",
@@ -5475,7 +5585,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 101
+      "rank": 103
     },
     {
       "id": "daad-6101",
@@ -5488,7 +5598,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Health",
       "assessment": "Not a current fit",
-      "fit": "Normally 210 ECTS and at least one year of relevant work are required. The stated profile has no additional credits or work experience.",
+      "fit": "Normally 210 ECTS and at least one year of relevant work are required. Additional credits and health-related experience remain unverified.",
       "requirements": "Academic admission requirements include a completed Bachelor's degree (minimum duration of three and a half years / 210 ECTS credit points) in a health-related field.\nIn addition, all applicants must show a minimum of one year of work experience after their first qualifying degree.\nApplicants with health-related professional experience in low- or middle-income countries will be given preference for admission.",
       "ielts_min": 6.0,
       "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
@@ -5534,7 +5644,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 102
+      "rank": 104
     },
     {
       "id": "daad-10443",
@@ -5581,7 +5691,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": false,
-      "rank": 103
+      "rank": 105
     },
     {
       "id": "daad-3737",
@@ -5594,8 +5704,8 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Business & entrepreneurship",
       "assessment": "Not a current fit",
-      "fit": "At least one year of post-degree professional experience is required. No work experience has been disclosed.",
-      "requirements": "Undergraduate degree/BSc in Business Economics, Information Technology, Engineering, Social Sciences or similar\nMinimum of one year of relevant professional experience AFTER graduation (full-time work experience)\nOfficial language certificate from IELTS required that is valid when the BCM programme starts in March",
+      "fit": "The direct university page requires a bachelor result of at least 70%, plus one year of relevant post-degree work. Check the grade and subject requirements before applying.",
+      "requirements": "Direct university application page: bachelor’s degree or equivalent with at least 70%; business administration, IT, engineering or economics applicants strongly encouraged. At least one year of relevant commercial or technical work after graduation. IELTS Academic 6.0 or TOEFL iBT 76. Confirm qualification and percentage interpretation with admissions.",
       "ielts_min": 6.0,
       "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
       "german": "No minimum language level required",
@@ -5615,8 +5725,12 @@
       "portal_url": null,
       "application_route": "Please check this website .",
       "checked_at": "2026-10-04",
-      "evidence_level": "University-supplied DAAD entry",
+      "evidence_level": "University pages and university-supplied DAAD entry",
       "sources": [
+        {
+          "label": "Direct university grade and work requirements",
+          "url": "https://www.hs-furtwangen.de/en/study/programmes/business-consulting-master/apply-now-for-bcm"
+        },
         {
           "label": "University programme",
           "url": "https://www.hs-furtwangen.de/en/programmes/business-consulting-master/"
@@ -5628,7 +5742,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 104
+      "rank": 106
     },
     {
       "id": "daad-4029",
@@ -5641,7 +5755,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Health",
       "assessment": "Not a current fit",
-      "fit": "Normally 210 ECTS and at least one year of relevant work are required. The stated profile has no additional credits or work experience.",
+      "fit": "Normally 210 ECTS and at least one year of relevant work are required. Additional credits and health-related work have not been established.",
       "requirements": "First degree either in health sciences / public health or a similar degree relevant to health sciences, such as medicine, social sciences, nursing or a degree in a health care profession or a degree in a discipline that is closely related to health sciences such as, for example, economics and a minimum of 210 ECTS\nProof of one year of professional experience in public health or qualified scientific work with convincing substantial and methodological relevance to health sciences / public health (attestation of employer)\nLanguage certificate if English is not your first language (see language requirements)\nUni-assist (VPD) ( www.uni-assist.de ): Students who completed their school education outside Germany must have their high school and Bachelor certificates checked by uni-assist and receive a VPD BEFORE applying to the HAW Hamburg. The VPD from uni-assist must be uploaded as part of the application process at HAW Hamburg. Please be advised that the uni-assist VPD process can take six to eight weeks, so please apply early.\nFor more information about academic requirements: HAW-Hamburg: Public Health (MPH) – Information for prospective students",
       "ielts_min": 7.0,
       "english": "IELTS Academic 7; confirm component minimums and certificate validity.",
@@ -5675,7 +5789,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 105
+      "rank": 107
     },
     {
       "id": "daad-4469",
@@ -5688,7 +5802,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Society & development",
       "assessment": "Not a current fit",
-      "fit": "At least five months of relevant practical experience is required, alongside 15 social-protection ECTS. No work/internship experience has been disclosed.",
+      "fit": "At least five months of social-protection-related practical experience and 15 relevant ECTS are required. General industrial management is not proof of that relevance.",
       "requirements": "At least 15 ECTS in social-protection-related topics and five months of relevant practical experience, in addition to the recognised degree.",
       "ielts_min": 7.0,
       "english": "IELTS Academic 7; confirm component minimums and certificate validity.",
@@ -5726,7 +5840,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 106
+      "rank": 108
     },
     {
       "id": "daad-6237",
@@ -5781,7 +5895,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 107
+      "rank": 109
     },
     {
       "id": "daad-8302",
@@ -5836,7 +5950,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 108
+      "rank": 110
     },
     {
       "id": "daad-7753",
@@ -5887,58 +6001,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 109
-    },
-    {
-      "id": "daad-9746",
-      "daad_id": "9746",
-      "programme": "Small Enterprise Promotion & Training (SEPT MBA)",
-      "university": "Leipzig University",
-      "city": "Leipzig",
-      "degree": "Master of Business Administration",
-      "duration": "4 semesters",
-      "mode": "On campus / university-based; check programme format",
-      "field": "Business & entrepreneurship",
-      "assessment": "Not a current fit",
-      "fit": "Although an Indian three-year first-class degree can qualify, at least two years of relevant professional work are required. No work experience has been disclosed.",
-      "requirements": "For the stated Indian-degree route: three-year bachelor with first class and at least 60%; at least two years of relevant professional experience. IELTS Academic 6.0. The exact percentage and degree recognition remain unverified for this profile.",
-      "ielts_min": 6.0,
-      "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
-      "german": "No minimum language level required",
-      "tuition_eur": 1500,
-      "tuition_note": "€1,500 per semester in the assumed non-EU category; exemptions require confirmation.",
-      "semester_eur": 320,
-      "semester_note": "Approx. €320.00 per semester; verify the next intake rate.",
-      "extra_fees": "Do not assume EPOS eligibility: prolonged residence in Germany can affect that scholarship route.",
-      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
-      "intake": "Winter 2027/28",
-      "deadline": "2027-03-15",
-      "date_basis": "Annual pattern; next cycle unconfirmed",
-      "window": "Self-funded applications: 1 January–15 March. EPOS scholarship deadline 1 October of the previous year is separate and has passed for this cycle.",
-      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
-      "programme_url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program",
-      "application_url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program/application",
-      "portal_url": null,
-      "application_route": "Please check this website .",
-      "checked_at": "2026-10-04",
-      "evidence_level": "University-supplied DAAD entry",
-      "sources": [
-        {
-          "label": "University programme",
-          "url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program"
-        },
-        {
-          "label": "website",
-          "url": "https://www.wifa.uni-leipzig.de/en/sept-competence-center/masters-program/application"
-        },
-        {
-          "label": "DAAD provider record",
-          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/9746/"
-        }
-      ],
-      "language_fit": "Score within 6.0",
-      "candidate": false,
-      "rank": 110
+      "rank": 111
     },
     {
       "id": "daad-5590",
@@ -5951,7 +6014,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Health",
       "assessment": "Not a current fit",
-      "fit": "At least two years of relevant health work and a credit remedy are required. The stated profile has no work experience or additional credits.",
+      "fit": "At least two years of relevant health-sector work and a credit remedy are required. Neither has been established by the disclosed management employment.",
       "requirements": "Completed, first university degree of min. 240 ECTS credit points in a health-related science (usually equivalent to a full-time, four-year university degree programme with eight semesters). Applicants who have a qualifying, first degree of six semesters and 180 ECTS credit points may be admitted to the MSc programme if they meet additional requirements (i.e. additional courses and/or work experience). If this applies to you, please contact the MSc Programme Coordination for further information.\nAt least two years of relevant, full-time work experience in the health sector is required. A work duration of two years must have been reached by the time that the application is submitted. Internships usually do not count. Only internships of longer duration can be possibly considered, given their relevant role proven by a respective reference and provided that they are equivalent to full-time employment.",
       "ielts_min": 6.0,
       "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
@@ -5993,7 +6056,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 111
+      "rank": 112
     },
     {
       "id": "daad-5205",
@@ -6052,7 +6115,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": false,
-      "rank": 112
+      "rank": 113
     },
     {
       "id": "daad-9267",
@@ -6099,7 +6162,7 @@
       ],
       "language_fit": "Assessment / confirm",
       "candidate": false,
-      "rank": 113
+      "rank": 114
     },
     {
       "id": "daad-3848",
@@ -6112,7 +6175,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Society & development",
       "assessment": "Not a current fit",
-      "fit": "Relevant practical development-management experience is required and none has been disclosed. The next cohort is 2028–2030, not 2027.",
+      "fit": "Relevant development-programme/project management is required; general industrial management does not establish it. The next cohort is 2028–2030.",
       "requirements": "Above-average (upper second or equivalent) BA or relevant degree in political science, social science, law, economics, human geography, or in other subjects related to planning and evaluation of development programmes and projects\nPractical experience related to the management of development programmes and projects",
       "ielts_min": 6.0,
       "english": "IELTS Academic 6; confirm component minimums and certificate validity.",
@@ -6146,7 +6209,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 114
+      "rank": 115
     },
     {
       "id": "daad-6451",
@@ -6197,7 +6260,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 115
+      "rank": 116
     },
     {
       "id": "daad-7655",
@@ -6210,7 +6273,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Business & entrepreneurship",
       "assessment": "Not a current fit",
-      "fit": "At least one year of work plus a business/economics-comparable degree and GMAT/GRE are required. No work experience has been disclosed; no eligible late winter route is verified.",
+      "fit": "Business/economics-comparable degree content and GMAT/GRE remain barriers to check. The confirmed work history may address duration, but no eligible late winter place is verified.",
       "requirements": "Business/economics or comparable degree; at least one year of work; GMAT 570 or GRE 305 (check the currently accepted test scale). Late applications are considered only with spare capacity before lectures; this is not a confirmed open route.",
       "ielts_min": 6.5,
       "english": "IELTS Academic 6.5; confirm component minimums and certificate validity.",
@@ -6248,7 +6311,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 116
+      "rank": 117
     },
     {
       "id": "daad-9680",
@@ -6295,7 +6358,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 117
+      "rank": 118
     },
     {
       "id": "daad-11242",
@@ -6342,7 +6405,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 118
+      "rank": 119
     },
     {
       "id": "daad-3876",
@@ -6389,7 +6452,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 119
+      "rank": 120
     },
     {
       "id": "daad-4694",
@@ -6444,7 +6507,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 120
+      "rank": 121
     },
     {
       "id": "daad-6927",
@@ -6499,7 +6562,7 @@
       ],
       "language_fit": "Higher score / C1 assessment",
       "candidate": false,
-      "rank": 121
+      "rank": 122
     },
     {
       "id": "daad-7734",
@@ -6512,7 +6575,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Health",
       "assessment": "Not a current fit",
-      "fit": "Normally 240 ECTS and at least one year of work are required. The stated profile has no additional credits or work experience.",
+      "fit": "Normally 240 ECTS and at least one year of relevant work are required. General management employment does not establish the required health-related experience.",
       "requirements": "Applicants must have a first academic degree of 240 ECTS in the areas of health, human medicine, veterinary medicine, dentistry, pharmacy, other academic health professions (public health/health sciences, psychology/psychotherapy, nursing/sciences, midwifery, medical laboratory sciences), international relations or other relevant social sciences. Additionally, applicants must have at least one year working experience in relevant areas, for instance, the regulation of health protection, health management and planning of health care, infrastructure, etc. The work experience of one year must be fully collected before applying.\nMore information: https://globalhealth-bonn.de/how-to-apply/",
       "ielts_min": 5.5,
       "english": "IELTS Academic 5.5; confirm component minimums and certificate validity.",
@@ -6546,7 +6609,7 @@
       ],
       "language_fit": "Score within 6.0",
       "candidate": false,
-      "rank": 122
+      "rank": 123
     },
     {
       "id": "daad-3844",
@@ -6593,65 +6656,6 @@
         {
           "label": "DAAD provider record",
           "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/3844/"
-        }
-      ],
-      "language_fit": "Higher score / C1 assessment",
-      "candidate": false,
-      "rank": 123
-    },
-    {
-      "id": "daad-3726",
-      "daad_id": "3726",
-      "programme": "Master of Public Policy (MPP) at the Willy Brandt School of Public Policy",
-      "university": "University of Erfurt",
-      "city": "Erfurt",
-      "degree": "Master’s degree",
-      "duration": "4 semesters",
-      "mode": "On campus / university-based; check programme format",
-      "field": "Society & development",
-      "assessment": "Not a current fit",
-      "fit": "At least one year of professional experience is required. No work experience has been disclosed.",
-      "requirements": "Higher education entrance qualification (e.g. high school diploma, Abitur)\ncollege or university degree (e.g. Bachelor's, Master's, Diploma, state exam, etc.) with a minimum duration of six semesters, ideally in subjects from the social sciences, economics, or law\nminimum of one year of professional work experience\nabove-average grades\nstrong analytical skills and pronounced interest in solving political problems\nvery good English language proficiency",
-      "ielts_min": 6.5,
-      "english": "IELTS Academic 6.5; confirm component minimums and certificate validity.",
-      "german": "No minimum language level required",
-      "tuition_eur": 2100,
-      "tuition_note": "€2,100 per semester in the assumed non-EU category; exemptions require confirmation.",
-      "semester_eur": 300,
-      "semester_note": "Approx. €300.00 per semester; verify the next intake rate.",
-      "extra_fees": "",
-      "fee_basis": "Source quote checked 4 October 2026; often 2026/27 or an earlier 2026 semester. Future rates unconfirmed.",
-      "intake": "Winter 2027/28",
-      "deadline": "2027-04-30",
-      "date_basis": "Annual pattern; next cycle unconfirmed",
-      "window": "Visa-required route: 30 April. Applicants not needing a new visa may have 15 July; confirm your category.",
-      "winter_note": "No suitable open winter 2026/27 route verified for this profile in this research.",
-      "programme_url": "https://www.uni-erfurt.de/en/brandtschool/studies/master-of-public-policy/master-of-public-policy",
-      "application_url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/dates-deadlines",
-      "portal_url": null,
-      "application_route": "Please check this website .",
-      "checked_at": "2026-10-04",
-      "evidence_level": "University-supplied DAAD entry",
-      "sources": [
-        {
-          "label": "University programme",
-          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/master-of-public-policy/master-of-public-policy"
-        },
-        {
-          "label": "website",
-          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/dates-deadlines"
-        },
-        {
-          "label": "website",
-          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/tuition-financing"
-        },
-        {
-          "label": "website",
-          "url": "https://www.uni-erfurt.de/en/brandtschool/studies/admissions/application-process"
-        },
-        {
-          "label": "DAAD provider record",
-          "url": "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/detail/3726/"
         }
       ],
       "language_fit": "Higher score / C1 assessment",
@@ -6720,7 +6724,7 @@
       "mode": "On campus / university-based; check programme format",
       "field": "Education & family",
       "assessment": "Not a current fit",
-      "fit": "The 180-ECTS route needs an additional 60 academic credits or approximately one year of relevant practice. Neither has been disclosed, and the international-practice requirement also needs checking.",
+      "fit": "The 180-ECTS route needs another 60 academic credits or approximately one year of relevant practice. Education-related and international practice have not been established.",
       "requirements": "At least 30 ECTS relevant education/social-science content and six weeks of international practice or 10 ECTS equivalent. Normally 240 total qualifying credits; an accepted 180-ECTS degree needs an additional 60 academic credits or approximately one year of relevant practical experience under the programme rules.",
       "ielts_min": 5.5,
       "english": "IELTS Academic 5.5; confirm component minimums and certificate validity.",
