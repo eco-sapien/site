@@ -12,8 +12,7 @@
     ['aps', 'APS / qualification check'], ['reference', 'Reference'], ['employment', 'Work evidence']
   ];
   const documentStages = ['Needed', 'Draft', 'Ready', 'Submitted', 'Not required'];
-  const storageKey = 'ecosapien-all-applications-v1';
-  let progress = Object.create(null), storageOkay = true, visible = [], limit = 12;
+  let progress = Object.create(null), visible = [], limit = 12, account;
   let library = { folder: '', documents: Object.create(null) };
   let currentPreset = 'potential', programmaticReset = false;
   const controls = ['search', 'scope', 'field', 'intake', 'english', 'tuition', 'sort'];
@@ -65,27 +64,8 @@
     }
     return clean;
   }
-  try {
-    const saved = localStorage.getItem(storageKey);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if ([1, 2].includes(parsed.version)) {
-        progress = cleanProgress(parsed.progress);
-        if (parsed.version === 2) library = cleanLibrary(parsed.library);
-      }
-    }
-  } catch {
-    storageOkay = false;
-  }
-
   function storeProgress() {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify({ version: 2, progress, library }));
-      storageOkay = true;
-    } catch { storageOkay = false; }
-    $('save-status').textContent = storageOkay
-      ? 'Progress and Drive links saved in this browser. Back up to move devices.'
-      : 'Browser saving is unavailable. Download a progress backup before closing.';
+    account?.changed();
     const savedCount = records.filter(r => getProgress(r.id).saved).length;
     $('saved-count').textContent = savedCount;
   }
@@ -113,15 +93,18 @@
       const key = row.dataset.documentRow, doc = getDocument(p, key);
       row.querySelector('select').value = doc.status;
       row.querySelector('input').value = doc.url;
+      row.querySelector('input').setCustomValidity('');
       const shared = library.documents[key] || '';
       row.querySelector('input').placeholder = shared ? 'Using your document-shelf link' : 'Paste a restricted Google Drive link';
       const link = row.querySelector('a');
       setLink(link, doc.url || shared);
       link.textContent = doc.url ? 'Open document ↗' : 'Open shelf document ↗';
+      row.querySelector('[data-upload]').textContent = doc.url ? 'Upload another version ↑' : 'Upload final file ↑';
     });
   }
 
   function saveUrl(input, onValid) {
+    if (!account.require()) return;
     const raw = input.value.trim(), url = driveUrl(raw);
     if (raw && !url) {
       input.setCustomValidity('Use an HTTPS link from drive.google.com or docs.google.com.');
@@ -151,8 +134,13 @@
       input.id = `doc-link-${r.id}-${key}`; input.autocomplete = 'off'; urlLabel.htmlFor = input.id; urlLabel.append(input);
       const link = document.createElement('a'); link.target = '_blank'; link.rel = 'noopener noreferrer';
       link.setAttribute('aria-label', 'Open ' + label + ' for ' + r.programme);
-      row.append(statusLabel, urlLabel, link); container.append(row);
+      const upload = document.createElement('button'); upload.type = 'button'; upload.className = 'button upload-button';
+      upload.dataset.upload = key; upload.textContent = 'Upload final file ↑';
+      upload.setAttribute('aria-label', 'Upload ' + label + ' for ' + r.programme);
+      upload.addEventListener('click', () => chooseUpload({ id: r.id, key, name: r.university + ' — ' + r.programme }));
+      row.append(statusLabel, upload, urlLabel, link); container.append(row);
       status.addEventListener('change', () => {
+        if (!account.require()) return;
         const p = getProgress(r.id);
         progress[r.id] = { ...p, documents: { ...p.documents, [key]: { ...getDocument(p, key), status: status.value } } };
         syncDocuments(card, progress[r.id]); storeProgress();
@@ -174,7 +162,7 @@
     save.textContent = p.saved ? 'Saved ✓' : '+ Shortlist';
     card.querySelector('[data-stage]').value = p.stage;
     card.querySelector('[data-notes]').value = p.notes;
-    card.querySelector('[data-progress-label]').textContent = p.stage === 'Not started' ? 'My progress & notes' : 'My progress · ' + p.stage;
+    card.querySelector('[data-progress-label]').textContent = p.stage === 'Not started' ? 'My files & progress' : 'My progress · ' + p.stage;
     syncDocuments(card, p);
   }
 
@@ -182,18 +170,29 @@
     const card = cards.get(r.id), save = card.querySelector('.save-route');
     save.hidden = false;
     card.querySelector('.personal-progress').hidden = false;
+    card.querySelector('.my-files-button').hidden = false;
+    card.querySelector('.my-files-button').addEventListener('click', () => {
+      card.querySelector('.personal-progress').open = true;
+      if (!account.require()) return;
+      card.querySelector('[data-documents]').open = true;
+      initialiseDocumentFields(card, r);
+      card.querySelector('.personal-progress').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
     save.addEventListener('click', () => {
+      if (!account.require()) return;
       const p = getProgress(r.id);
       progress[r.id] = { ...p, saved: !p.saved };
       syncCard(r); storeProgress();
       if ($('scope').value === 'saved') render();
     });
     card.querySelector('[data-stage]').addEventListener('change', event => {
+      if (!account.require()) return;
       progress[r.id] = { ...getProgress(r.id), stage: event.target.value };
-      card.querySelector('[data-progress-label]').textContent = event.target.value === 'Not started' ? 'My progress & notes' : 'My progress · ' + event.target.value;
+      card.querySelector('[data-progress-label]').textContent = event.target.value === 'Not started' ? 'My files & progress' : 'My progress · ' + event.target.value;
       storeProgress();
     });
     card.querySelector('[data-notes]').addEventListener('input', event => {
+      if (!account.require()) return;
       progress[r.id] = { ...getProgress(r.id), notes: event.target.value.slice(0, 4000) };
       storeProgress();
     });
@@ -210,11 +209,13 @@
 
   function syncLibrary() {
     $('drive-folder').value = library.folder;
-    $('drive-upload').href = library.folder || 'https://drive.google.com/drive/my-drive';
+    setLink($('drive-upload'), account?.hasData ? account.workspace.folderUrl : '');
     document.querySelectorAll('[data-library-document]').forEach(input => {
       const key = input.dataset.libraryDocument;
       input.value = library.documents[key] || '';
+      input.setCustomValidity('');
       setLink(input.closest('.library-item').querySelector('a'), library.documents[key]);
+      input.closest('.library-item').querySelector('[data-library-upload]').textContent = library.documents[key] ? 'Upload another version ↑' : 'Upload final file ↑';
     });
     records.forEach(r => syncDocuments(cards.get(r.id), getProgress(r.id)));
   }
@@ -226,7 +227,34 @@
       library.documents[input.dataset.libraryDocument] = url; syncLibrary();
     }));
   });
+  document.querySelectorAll('[data-library-upload]').forEach(button => {
+    button.addEventListener('click', () => chooseUpload({ id: 'library', key: button.dataset.libraryUpload, name: 'Shared documents' }));
+  });
   syncLibrary();
+
+  let uploadTarget = null;
+  function chooseUpload(target) {
+    if (!account.require()) return;
+    if (account.uploading) { account.status('Finish or cancel the current upload first.'); return; }
+    uploadTarget = { ...target, epoch: account.epoch };
+    $('document-file').value = '';
+    $('document-file').click();
+  }
+  $('document-file').addEventListener('change', event => {
+    const file = event.target.files[0], target = uploadTarget;
+    uploadTarget = null; event.target.value = '';
+    if (!file || !target || target.epoch !== account.epoch) return;
+    account.upload(file, target, result => {
+      if (target.id === 'library') {
+        library.documents[target.key] = result.url;
+        library.folder = result.folder;
+      } else {
+        const p = getProgress(target.id);
+        progress[target.id] = { ...p, folder: result.folder, documents: { ...p.documents, [target.key]: { status: 'Ready', url: result.url } } };
+      }
+      syncLibrary(); records.forEach(syncCard);
+    });
+  });
 
   function resetForm() {
     programmaticReset = true;
@@ -283,7 +311,7 @@
     $('no-results').hidden = visible.length !== 0;
     $('empty-explanation').textContent = intake === 'Winter 2026/27'
       ? 'No suitable open application for this intake was verified on 4 October 2026. Fulda’s standard deadline was 30 September; any late place needs explicit confirmation. Try summer 2027 or the next winter intake.'
-      : scope === 'saved' ? 'Use “+ Shortlist” on a programme to save it in this browser. Clear other filters if you have already saved routes.'
+      : scope === 'saved' ? 'Sign in and use “+ Shortlist” to save a programme in your Google Drive. Clear other filters if you have already saved routes.'
       : 'Try fewer filters or choose “All reviewed” to include routes with known barriers.';
     $('more-area').hidden = visible.length <= limit;
     $('more-count').textContent = `${shown} of ${visible.length} matching routes shown`;
@@ -341,38 +369,63 @@
       rows.push(columns.map(c=>csvCell(values[c.key])).join(','));
     });
     download('all-applications-filtered-with-progress.csv','\uFEFF'+rows.join('\r\n')+'\r\n','text/csv;charset=utf-8');
-    $('save-status').textContent=`Exported ${visible.length} matching routes, including your local notes.`;
+    $('save-status').textContent=`Exported ${visible.length} matching routes`+(account.hasData?', including your private notes and document links. Keep this download private.':'.');
   });
   $('backup-progress').addEventListener('click', () => {
-    download('ecosapien-application-progress.json',JSON.stringify({version:2,exported_at:new Date().toISOString(),research_checked:data.checked_at,progress,library},null,2),'application/json');
+    if (!account.hasData) return;
+    download('ecosapien-application-progress.json',JSON.stringify({version:3,exported_at:new Date().toISOString(),research_checked:data.checked_at,progress,library},null,2),'application/json');
     $('save-status').textContent='Backup downloaded with notes, checklists and Drive links. Keep it privately in Drive; document files are not included.';
   });
-  $('restore-progress').addEventListener('click', () => $('backup-file').click());
+  $('restore-progress').addEventListener('click', () => { if (account.require()) $('backup-file').click(); });
+  function restoreState(parsed) {
+    if (!parsed || ![1,2,3].includes(parsed.version)) throw new Error('This is not a supported application-progress backup.');
+    const restored=cleanProgress(parsed.progress);
+    const restoredLibrary=parsed.version>=2?cleanLibrary(parsed.library):null;
+    const hasLibrary=restoredLibrary && (restoredLibrary.folder || Object.values(restoredLibrary.documents).some(Boolean));
+    if (!Object.keys(restored).length && !hasLibrary) throw new Error('No matching programme progress or document links were found in this file.');
+    Object.entries(restored).forEach(([id,p]) => {
+      const existing=getProgress(id);
+      progress[id]=parsed.version===1?{...existing,saved:p.saved,stage:p.stage,notes:p.notes}:p;
+    });
+    if (restoredLibrary && parsed.library) library=restoredLibrary;
+    syncLibrary(); records.forEach(syncCard); render();
+    return Object.keys(restored).length;
+  }
   $('backup-file').addEventListener('change', async event => {
-    const file=event.target.files[0]; if (!file) return;
+    const file=event.target.files[0], epoch=account.epoch;
+    if (!file || !account.require()) return;
     try {
       if (file.size>6*1024*1024) throw new Error('Choose a progress JSON file smaller than 6 MB.');
       const parsed=JSON.parse(await file.text());
-      if (![1,2].includes(parsed.version)) throw new Error('This is not a supported application-progress backup.');
-      const restored=cleanProgress(parsed.progress);
-      const restoredLibrary=parsed.version===2?cleanLibrary(parsed.library):null;
-      const hasLibrary=restoredLibrary && (restoredLibrary.folder || Object.values(restoredLibrary.documents).some(Boolean));
-      if (!Object.keys(restored).length && !hasLibrary) throw new Error('No matching programme progress or document links were found in this file.');
-      Object.entries(restored).forEach(([id,p]) => {
-        const existing=getProgress(id);
-        // Older backups can update stages/notes without erasing newer document work.
-        progress[id]=parsed.version===1?{...existing,saved:p.saved,stage:p.stage,notes:p.notes}:p;
-      });
-      if (restoredLibrary && parsed.library) library=restoredLibrary;
-      syncLibrary(); records.forEach(syncCard); storeProgress(); render();
-      $('save-status').textContent=`Restored ${Object.keys(restored).length} programme entries. `+(storageOkay?'Saved in this browser.':'Download a backup before closing; browser saving is unavailable.');
-    } catch (error) { $('save-status').textContent=error.message || 'The backup could not be read. Your existing progress was kept.'; }
+      if (epoch!==account.epoch || !account.hasData) return;
+      if (!confirm('Restore this backup into '+account.workspace.account.emailAddress+'? Matching application entries will be replaced; other entries will remain.')) return;
+      const count=restoreState(parsed);
+      storeProgress();
+      $('save-status').textContent=`Restored ${count} programme entries. Saving to your Google Drive…`;
+    } catch (error) { if(epoch===account.epoch) $('save-status').textContent=error.message || 'The backup could not be read. Your existing progress was kept.'; }
     event.target.value='';
   });
 
   $('filters').hidden=false; $('quick-filters').hidden=false; $('tracker-toolbar').hidden=false;
   $('filter-foot').hidden=false; $('reset-empty').hidden=false; $('document-library').hidden=false;
-  $('save-status').textContent=storageOkay?'Notes stay in this browser; use a backup to move devices.':'Browser saving is unavailable. Download a progress backup before closing.';
+  account = new ApplicationAccount({
+    records, documentTypes,
+    snapshot: () => ({ version: 3, progress, library }),
+    restore: restoreState,
+    apply: state => {
+      progress = cleanProgress(state.progress); library = cleanLibrary(state.library);
+      syncLibrary(); records.forEach(syncCard);
+      $('saved-count').textContent=records.filter(r=>getProgress(r.id).saved).length;
+      render();
+    },
+    access: (hasData, connected) => {
+      document.querySelectorAll('[data-private-gate]').forEach(element => { element.hidden=hasData; });
+      document.querySelectorAll('[data-private-fields]').forEach(element => { element.hidden=!hasData; element.disabled=!connected; });
+      syncLibrary();
+    }
+  });
+  account.render();
+  $('save-status').textContent=account.offline?'Offline research copy. Open the live website for private uploads and progress.':'Sign in to manage your files and progress privately in Google Drive.';
   $('saved-count').textContent=records.filter(r=>getProgress(r.id).saved).length;
   render(); revealHash();
 })();
