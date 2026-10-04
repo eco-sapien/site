@@ -20,7 +20,7 @@
     const p = change.path, v = change.value;
     if (!(typeof v === 'string' && v.length <= 4000 || typeof v === 'boolean')) return false;
     if (p[0] === 'progress' && validProgramme(p[1])) {
-      return p.length === 3 && ['saved', 'stage', 'notes', 'folder'].includes(p[2])
+      return p.length === 3 && ['saved', 'stage', 'notes', 'folder', 'deadline', 'deadline_note', 'deadline_confirmed'].includes(p[2])
         || p.length === 5 && p[2] === 'documents' && DOCS.includes(p[3]) && ['url', 'status'].includes(p[4]);
     }
     return p[0] === 'library' && (p.length === 2 && p[1] === 'folder'
@@ -89,6 +89,8 @@
       const abort = () => controller.abort();
       signals.forEach(signal => { signal.addEventListener('abort', abort, { once: true }); if (signal.aborted) abort(); });
       const timeout = setTimeout(abort, 60000);
+      let retained = false;
+      const release = () => { clearTimeout(timeout); signals.forEach(signal => signal.removeEventListener('abort', abort)); };
       try {
         const response = await fetch(url.href, {
           ...init, headers: { ...init.headers, Authorization: 'Bearer ' + session.token },
@@ -107,13 +109,13 @@
             : `Google Drive could not complete this request (${response.status}). Retry when your connection is stable.`;
           throw new Error(message);
         }
+        if (init.retainSignal) { response.releaseDriveSignal = release; retained = true; }
         return response;
       } catch (error) {
         if (error.name === 'AbortError' && !session.controller.signal.aborted && !init.signal?.aborted) throw new Error('The Google Drive request timed out. Check your connection and retry.');
         throw error;
       } finally {
-        clearTimeout(timeout);
-        signals.forEach(signal => signal.removeEventListener('abort', abort));
+        if (!retained) release();
       }
     }
     async json(path, init, session) {
@@ -179,6 +181,12 @@
     }
     async load() {
       const session = this.requireSession();
+      // A second device may have created another root during first-time setup.
+      // Include all app roots when replaying history, preserving both devices.
+      const foundRoots = await this.list(`'me' in owners and mimeType='${FOLDER}' and ` + this.query('root'), session);
+      const foundIds = new Set(foundRoots.map(root => root.id));
+      this.roots = [...foundRoots, ...this.roots.filter(root => !foundIds.has(root.id))].sort((a, b) => a.createdTime.localeCompare(b.createdTime) || a.id.localeCompare(b.id));
+      if (!this.roots.length) throw new Error('Your workspace folder is missing. Restore it from Drive’s bin, then reconnect.');
       // Independent saves are append-only patches. Concurrent devices retain
       // edits to different fields; the latest Drive-created patch wins per field.
       const files = [];
@@ -244,13 +252,37 @@
       this.entries.set(batch.id, entry);
       this.unlisted.set(batch.id, entry);
     }
+    async download(url) {
+      const session = this.requireSession();
+      const link = new URL(url);
+      if (link.protocol !== 'https:' || !['drive.google.com', 'docs.google.com'].includes(link.hostname) || link.username || link.password || link.port) throw new Error('Use a valid Google Drive document link.');
+      const id = /\/d\/([a-zA-Z0-9_-]+)/.exec(link.pathname)?.[1] || link.searchParams.get('id');
+      if (!validId(id)) throw new Error('This is not a direct file link. Open it in Drive to download.');
+      const meta = await this.json('files/' + id + '?fields=id,name,mimeType,size,capabilities(canDownload)', {}, session);
+      if (meta.capabilities?.canDownload === false || meta.mimeType === FOLDER) throw new Error('This item cannot be downloaded here. Open it in Drive.');
+      if (Number(meta.size || 0) > DriveWorkspace.maxFileSize) throw new Error('This file is larger than 100 MB. Download it directly from Drive.');
+      const native = ['application/vnd.google-apps.document', 'application/vnd.google-apps.spreadsheet', 'application/vnd.google-apps.presentation', 'application/vnd.google-apps.drawing'].includes(meta.mimeType);
+      const path = native ? 'files/' + id + '/export?mimeType=application%2Fpdf' : 'files/' + id + '?alt=media';
+      const response = await this.request(path, { retainSignal: true }, session);
+      try {
+        const blob = await response.blob();
+        this.assertSession(session);
+        if (blob.size > DriveWorkspace.maxFileSize) throw new Error('This file is larger than 100 MB. Download it directly from Drive.');
+        let name = String(meta.name || 'Application document').replace(/[\x00-\x1f\x7f/\\]/g, '_').slice(0, 220);
+        if (native && !/\.pdf$/i.test(name)) name += '.pdf';
+        return { blob, name };
+      } finally { response.releaseDriveSignal(); }
+    }
     async upload(file, target, onProgress, signal) {
       const session = this.requireSession();
       if (!file.size || file.size > DriveWorkspace.maxFileSize) throw new Error('Choose a non-empty file of up to 100 MB.');
       if (!/\.(pdf|docx?|odt|rtf|txt|pptx?|odp|jpe?g|png|webp|zip)$/i.test(file.name)) throw new Error('Use PDF, Word, ODT, text, PowerPoint, JPG, PNG, WebP or ZIP.');
       if (target.id !== 'library' && !validProgramme(target.id)) throw new Error('Unknown application.');
+      if (!DOCS.includes(target.key)) throw new Error('Unknown document slot.');
       const root = await this.privateFolder(this.roots[0], session.homeId, session);
       const folder = await this.folder(target.id, target.id === 'library' ? 'Shared documents' : target.name.slice(0, 150), root.id, session);
+      const labels = { cv: 'CV', statement: 'Statement', portfolio: 'Portfolio', degree: 'Degree certificate', transcript: 'Transcript', language: 'English evidence', aps: 'APS', reference: 'Reference', employment: 'Work evidence' };
+      const destination = await this.folder('slot-' + target.key, labels[target.key], folder.id, session);
       const ids = await this.json('files/generateIds?count=1&space=drive&type=files', {}, session);
       const fileId = ids.ids[0];
       if (!validId(fileId)) throw new Error('Google did not provide a valid file ID.');
@@ -259,7 +291,7 @@
       const response = await this.request(UPLOAD + '?uploadType=resumable&fields=id,name,webViewLink,size', {
         method: 'POST', signal,
         headers: { 'Content-Type': 'application/json', 'X-Upload-Content-Type': mimeType, 'X-Upload-Content-Length': String(file.size) },
-        body: JSON.stringify({ id: fileId, name, mimeType, parents: [folder.id], appProperties: { eco_app: APP, eco_kind: 'document', eco_slot: target.key } })
+        body: JSON.stringify({ id: fileId, name, mimeType, parents: [destination.id], appProperties: { eco_app: APP, eco_kind: 'document', eco_slot: target.key } })
       }, session);
       const location = response.headers.get('Location');
       if (!location?.startsWith(UPLOAD + '?')) throw new Error('Google did not return a valid upload session. Retry.');

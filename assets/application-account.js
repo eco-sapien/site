@@ -1,4 +1,4 @@
-/* Account UI and autosave queue for the public, static application catalogue. */
+/* Account UI and autosave queue for the separate Databases workspace. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -74,7 +74,7 @@
       const set = (path, value) => values.set(JSON.stringify(path), { path, value });
       for (const record of this.options.records) {
         const p = state.progress[record.id] || {};
-        for (const [key, fallback] of Object.entries({ saved: false, stage: 'Not started', notes: '', folder: '' })) set(['progress', record.id, key], p[key] ?? fallback);
+        for (const [key, fallback] of Object.entries({ saved: false, stage: 'Not started', notes: '', folder: '', deadline: '', deadline_note: '', deadline_confirmed: false })) set(['progress', record.id, key], p[key] ?? fallback);
         for (const [key] of this.options.documentTypes) {
           const doc = p.documents?.[key] || {};
           set(['progress', record.id, 'documents', key, 'status'], doc.status || 'Needed');
@@ -133,7 +133,7 @@
       $('legacy-notice').hidden = !found || this.offline;
     }
     login() {
-      if (this.offline) { window.open('https://www.ecosapien.de/all-applications.html', '_blank', 'noopener,noreferrer'); return; }
+      if (this.offline) { window.open('https://www.ecosapien.de/databases.html#login', '_blank', 'noopener,noreferrer'); return; }
       if (!$('login-dialog').open) $('login-dialog').showModal();
       $('google-setup').open = !validClient(this.clientId);
       this.prepareGoogle();

@@ -22,6 +22,18 @@ try {
   assert.equal((await a.load()).progress['weimar-media-art'].notes, 'Custom university route');
   console.log('PASS independent devices retain changes to different fields and support custom programme IDs');
 
+  await b.save({ changes: [change('deadline', '2027-01-15'), change('deadline_confirmed', true), change('deadline_note', 'Confirmed by university')] });
+  state = await a.load();
+  assert.equal(state.progress['daad-11011'].deadline, '2027-01-15');
+  assert.equal(state.progress['daad-11011'].deadline_confirmed, true);
+  assert.equal(state.progress['daad-11011'].deadline_note, 'Confirmed by university');
+  const extraRoot = { ...mock.files.get(a.roots[0].id), id: 'concurrent-root', createdTime: '2026-10-04T03:00:00.000Z' };
+  mock.files.set(extraRoot.id, extraRoot); b.roots = [extraRoot];
+  await b.save({ changes: [change('stage', 'Check eligibility')] });
+  assert.equal((await a.load()).progress['daad-11011'].stage, 'Check eligibility');
+  assert.equal(a.roots.length, 2);
+  console.log('PASS deadline overrides persist and later-created workspace roots are discovered');
+
   mock.pageSize = 1;
   await b.save({ changes: [change('notes', 'Later note')] });
   assert.equal((await a.load()).progress['daad-11011'].notes, 'Later note');
@@ -47,6 +59,46 @@ try {
   assert.notEqual(uploaded.id, again.id);
   assert(mock.files.has(uploaded.id));
   console.log('PASS resumable upload recovers accepted chunk and keeps earlier versions');
+
+  const slot = mock.files.get(mock.files.get(uploaded.id).parents[0]);
+  assert.equal(slot.name, 'Portfolio'); assert.equal(slot.appProperties.eco_kind, 'slot-portfolio');
+  assert.equal(mock.files.get(slot.parents[0]).appProperties.eco_kind, 'daad-11011');
+  assert.equal(again.folder, uploaded.folder);
+  const small = new Blob(['%PDF-1.4\nA real byte comparison\n', new Uint8Array([0, 1, 254, 255])], { type: 'application/pdf' });
+  small.name = 'Final CV.pdf';
+  const cv = await a.upload(small, { id: 'daad-11011', name: 'Example university', key: 'cv' }, () => {});
+  const shared = await a.upload(small, { id: 'library', key: 'cv' }, () => {});
+  const art = await a.upload(small, { id: 'art-example', name: 'Art school', key: 'cv' }, () => {});
+  const folderFor = item => mock.files.get(mock.files.get(item.id).parents[0]);
+  assert.equal(folderFor(cv).appProperties.eco_kind, 'slot-cv');
+  assert.equal(folderFor(cv).parents[0], slot.parents[0]);
+  assert.notEqual(folderFor(shared).id, folderFor(cv).id);
+  assert.notEqual(folderFor(art).id, folderFor(cv).id);
+  assert.equal(mock.files.get(folderFor(shared).parents[0]).appProperties.eco_kind, 'library');
+  const downloaded = await a.download(cv.url);
+  assert.equal(downloaded.name, 'Final CV.pdf');
+  assert.deepEqual(new Uint8Array(await downloaded.blob.arrayBuffer()), new Uint8Array(await small.arrayBuffer()));
+  console.log('PASS programme, shared library and document-slot destinations stay separate; download returns original bytes');
+
+  mock.files.set('native-doc', { id: 'native-doc', account: 'account-a', mimeType: 'application/vnd.google-apps.document', name: 'Statement' });
+  const exported = await a.download('https://docs.google.com/document/d/native-doc/edit');
+  assert.equal(exported.name, 'Statement.pdf');
+  assert.match(await exported.blob.text(), /^%PDF/);
+  mock.files.set('oversized-file', { id: 'oversized-file', account: 'account-a', mimeType: 'application/pdf', size: String(DriveWorkspace.maxFileSize + 1) });
+  await assert.rejects(a.download('https://drive.google.com/file/d/oversized-file/view'), /100 MB/);
+  await assert.rejects(a.download('https://drive.google.com.evil.example/file/d/native-doc/view'), /valid Google Drive/);
+  await assert.rejects(a.upload(small, { id: 'library', key: 'invented' }, () => {}), /Unknown document slot/);
+  console.log('PASS native documents export to PDF and invalid downloads or slots are rejected');
+
+  mock.holdDownload = true;
+  const pendingDownload = a.download(cv.url);
+  while (!mock.releaseDownload) await new Promise(resolve => setTimeout(resolve, 1));
+  a.signOut();
+  await assert.rejects(pendingDownload, { name: 'AbortError' });
+  assert.equal(mock.downloadSignal.aborted, true);
+  mock.releaseDownload(); mock.holdDownload = false;
+  await a.connect(token('account-a'));
+  console.log('PASS sign-out aborts an in-progress download even after response headers arrive');
 
   const root = mock.files.get(a.roots[0].id);
   root.permissions.push({ type: 'anyone', role: 'reader' });

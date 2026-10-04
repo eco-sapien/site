@@ -4,8 +4,10 @@
 
 - [Portfolio](https://www.ecosapien.de/): selected work and practice introduction.
 - [Art application](https://www.ecosapien.de/applications.html): 24 European art study routes with fees, languages, portfolio requirements and official admissions links. Research snapshot checked 1 October 2026; unconfirmed fees and dates are marked.
-- [All applications](https://www.ecosapien.de/all-applications.html): German public-university master's routes reviewed for a Home Science / interior design background. Snapshot checked 4 October 2026. Eligibility is conditional; no suitable open winter 2026/27 route was verified for the stated profile. Future annual deadlines are projections unless marked published. Local shortlist and notes do not publish to GitHub.
+- [All applications](https://www.ecosapien.de/all-applications.html): German public-university master's routes reviewed for a Home Science / interior design background. Snapshot checked 4 October 2026. Eligibility is conditional; no suitable open winter 2026/27 route was verified for the stated profile. Future annual deadlines are projections unless marked published. Private tracking is on the separate Databases page.
 - [Master's comparison CSV](https://www.ecosapien.de/all-applications.csv): the full comparison, including clearly labelled routes with known barriers.
 - [Source repository](https://github.com/eco-sapien/site): static GitHub Pages website.
 
 The current gallery identifies its collections as being prepared; artwork photographs have not yet been added. Do not infer artworks or exhibition history from these collection placeholders.
+
+- [Databases](https://www.ecosapien.de/databases.html): combined art and master’s dashboard with deadlines, document-readiness charts, application stages and private Google Drive uploads/downloads. Personal progress appears only after Google authorization and is never published to GitHub.
