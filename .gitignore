@@ -10,13 +10,16 @@ Desktop.ini
 .vscode/
 .idea/
 
-# Node (in case dependencies are added later)
+# JavaScript dependencies (the lockfile and browser bundle are tracked)
 node_modules/
-package-lock.json
 
 # Environment
 .env
-.env.local
+.env.*
+*.env
+!.env.example
+supabase/.temp/
+supabase/private/
 
 # Logs
 *.log

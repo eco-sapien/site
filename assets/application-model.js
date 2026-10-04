@@ -9,7 +9,8 @@
   const stages = ['Not started', 'Check eligibility', 'Preparing', 'Submitted', 'Offer received', 'Unsuccessful', 'Not pursuing'];
   const documentStages = ['Needed', 'Draft', 'Ready', 'Submitted', 'Not required'];
   const defaults = () => ({ saved: false, stage: 'Not started', notes: '', folder: '', deadline: '', deadline_note: '', deadline_confirmed: false, documents: Object.create(null) });
-  const documentValue = (p, key) => p.documents?.[key] || { status: 'Needed', url: '' };
+  const documentValue = (p, key) => p.documents?.[key] || { status: 'Needed', url: '', file_id: '' };
+  const fileId = value => typeof value === 'string' && /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(value) ? value.toLowerCase() : '';
   function driveUrl(input) {
     if (typeof input !== 'string' || input.length > 2048) return '';
     try {
@@ -33,13 +34,16 @@
     const clean = Object.create(null);
     for (const [key] of documentTypes) {
       const value = input?.[key];
-      if (value && typeof value === 'object' && !Array.isArray(value)) clean[key] = { status: documentStages.includes(value.status) ? value.status : 'Needed', url: driveUrl(value.url) };
+      if (value && typeof value === 'object' && !Array.isArray(value)) clean[key] = { status: documentStages.includes(value.status) ? value.status : 'Needed', url: driveUrl(value.url), file_id: fileId(value.file_id) };
     }
     return clean;
   }
   function cleanLibrary(input) {
-    const clean = { folder: driveUrl(input?.folder), documents: Object.create(null) };
-    for (const [key] of documentTypes) clean.documents[key] = driveUrl(input?.documents?.[key]);
+    const clean = { folder: driveUrl(input?.folder), documents: Object.create(null), files: Object.create(null) };
+    for (const [key] of documentTypes) {
+      clean.documents[key] = driveUrl(input?.documents?.[key]);
+      clean.files[key] = fileId(input?.files?.[key]);
+    }
     return clean;
   }
   function cleanProgress(input, known) {
@@ -50,7 +54,7 @@
       clean[id] = {
         saved: value.saved === true, stage: stages.includes(value.stage) ? value.stage : 'Not started',
         notes: typeof value.notes === 'string' ? value.notes.slice(0, 4000) : '', folder: driveUrl(value.folder),
-        deadline: dayNumber(value.deadline) !== null ? value.deadline : '',
+        deadline: dayNumber(value.deadline) !== null && value.deadline >= '2000-01-01' && value.deadline <= '2100-12-31' ? value.deadline : '',
         deadline_note: typeof value.deadline_note === 'string' ? value.deadline_note.slice(0, 4000) : '',
         deadline_confirmed: value.deadline_confirmed === true,
         documents: cleanDocuments(value.documents)
@@ -62,7 +66,7 @@
     let ready = 0, required = 0, draft = 0, linked = 0;
     for (const [key] of documentTypes) {
       const doc = documentValue(p, key);
-      if (doc.url || library.documents[key]) linked++;
+      if (doc.file_id || doc.url || library.files?.[key] || library.documents[key]) linked++;
       if (doc.status === 'Not required') continue;
       required++;
       if (doc.status === 'Ready' || doc.status === 'Submitted') ready++;
@@ -72,7 +76,7 @@
   }
   function tracked(p) {
     return !!(p.saved || p.stage !== 'Not started' || p.notes || p.folder || p.deadline
-      || Object.values(p.documents || {}).some(doc => doc.url || doc.status !== 'Needed'));
+      || Object.values(p.documents || {}).some(doc => doc.file_id || doc.url || doc.status !== 'Needed'));
   }
   function active(p) { return tracked(p) && !['Not pursuing', 'Unsuccessful'].includes(p.stage); }
   function deadline(record, p, onDate = today()) {
@@ -90,5 +94,5 @@
     if (/^[\s]*[=+\-@]/.test(text) || /^[\t\r\n]/.test(text)) text = "'" + text;
     return '"' + text.replace(/"/g, '""') + '"';
   }
-  window.ApplicationModel = Object.freeze({ documentTypes, stages, documentStages, defaults, documentValue, driveUrl, dayNumber, today, cleanDocuments, cleanLibrary, cleanProgress, readiness, tracked, active, deadline, formatDate, csvCell });
+  window.ApplicationModel = Object.freeze({ documentTypes, stages, documentStages, defaults, documentValue, fileId, driveUrl, dayNumber, today, cleanDocuments, cleanLibrary, cleanProgress, readiness, tracked, active, deadline, formatDate, csvCell });
 })();

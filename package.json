@@ -1,0 +1,17 @@
+{
+  "name": "ecosapien-applications",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:vendor": "node tools/build_vendor.mjs",
+    "test": "node tools/tests/check_application_model.mjs && node tools/tests/check_supabase_sql.mjs && node tools/tests/check_supabase_workspace.mjs && node tools/tests/check_agent_workspace.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.117.2",
+    "tus-js-client": "4.3.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "esbuild": "0.28.2"
+  }
+}

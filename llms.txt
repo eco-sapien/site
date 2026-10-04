@@ -10,4 +10,4 @@
 
 The current gallery identifies its collections as being prepared; artwork photographs have not yet been added. Do not infer artworks or exhibition history from these collection placeholders.
 
-- [Databases](https://www.ecosapien.de/databases.html): combined art and master’s dashboard with deadlines, document-readiness charts, application stages and private Google Drive uploads/downloads. Personal progress appears only after Google authorization and is never published to GitHub.
+- [Databases](https://www.ecosapien.de/databases.html): combined art and master’s dashboard with deadlines, document-readiness charts, application stages and shared Supabase progress and private document uploads/downloads for invited members. Personal progress is never published to GitHub.

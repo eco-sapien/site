@@ -1,10 +1,16 @@
-"""Databases browser checks with synthetic OAuth/Drive, never a real account."""
+"""Browser checks with a synthetic Supabase SDK; no real account or documents.
+
+Serve the repository on port 8765; start isolated Firefox with Marionette.
+PostgreSQL/RLS itself is exercised by check_supabase_sql.mjs.
+"""
 import json
 import time
 from pathlib import Path
 from marionette import Browser
 
 BASE = 'http://127.0.0.1:8765/'
+ROOT = Path(__file__).resolve().parents[2]
+FIXTURE = Path(__file__).with_name('workspace.generated.html')
 ROW = '#application-daad-11011'
 
 def async_script(b, script):
@@ -12,212 +18,159 @@ def async_script(b, script):
     return result.get('value', result) if isinstance(result, dict) else result
 
 def wait(b, expression):
-    for attempt in range(4):
-        try:
-            result = async_script(b, '''const done=arguments[arguments.length-1];let count=0;
-              const tick=()=>{try{if(EXPRESSION)return done(true);}catch{}if(++count>200)return done((document.getElementById('save-status')?.textContent||'')+' / '+(document.getElementById('login-message')?.textContent||''));setTimeout(tick,50);};tick();'''.replace('EXPRESSION', expression))
-            if result is None and attempt < 3:
-                time.sleep(0.1)
-                continue
-            assert result is True, result
-            return
-        except RuntimeError as error:
-            if 'Document was unloaded' not in str(error) or attempt == 3:
-                raise
-            time.sleep(0.1)
+    result = async_script(b, """const done=arguments[arguments.length-1];let count=0;
+      const tick=()=>{try{if(EXPRESSION)return done(true);}catch{}if(++count>200)return done((document.getElementById('save-status')?.textContent||'')+' / '+(document.getElementById('login-message')?.textContent||'')+' / '+JSON.stringify(window.__errors));setTimeout(tick,50);};tick();""".replace('EXPRESSION', expression))
+    assert result is True, result
 
-def fixture(b, snapshot=None):
-    b.script(Path(__file__).with_name('mock_drive.js').read_text() + '''
-      window.__mock=createDriveMock();window.fetch=window.__mock.request;window.__account='account-a';window.__errors=[];
-      window.addEventListener('error',e=>window.__errors.push(e.message));window.addEventListener('unhandledrejection',e=>window.__errors.push(String(e.reason)));
-      window.confirm=()=>true;
-      window.google={accounts:{oauth2:{hasGrantedAllScopes:(r,s)=>r.scope===s,
-        initTokenClient:config=>({requestAccessToken:()=>{window.__oauthCallback=config.callback;if(!window.__holdAuth)setTimeout(()=>config.callback({access_token:window.__account,expires_in:3600,scope:DriveWorkspace.scope}),0);}})}}};
-      window.__originalCreate=URL.createObjectURL;URL.createObjectURL=blob=>{window.__download=blob;return window.__originalCreate(blob);};
+def fixture(seed=None):
+    source = (ROOT/'databases.html').read_text()
+    script = """<script src="tools/tests/mock_supabase.js"></script><script>
+      window.__mock=createSupabaseMock(SEED);window.ECOSAPIEN_SUPABASE=window.__mock.config;window.EcoCloudSDK=window.__mock.sdk;
+      window.__errors=[];window.addEventListener('error',e=>window.__errors.push(e.message));window.addEventListener('unhandledrejection',e=>window.__errors.push(String(e.reason)));
+      window.confirm=()=>true;window.__originalCreate=URL.createObjectURL;URL.createObjectURL=blob=>{window.__download=blob;return window.__originalCreate(blob);};
       window.__anchorClick=HTMLAnchorElement.prototype.click;HTMLAnchorElement.prototype.click=function(){if(this.download){window.__downloadName=this.download;return;}return window.__anchorClick.call(this);};
-    ''')
-    if snapshot:
-        b.script('window.__mock.restore(' + json.dumps(snapshot) + ');')
+    </script>""".replace('SEED',json.dumps(seed).replace('<','\\u003c'))
+    source=source.replace('<head>','<head><base href="/">').replace('<script src="assets/application-model.js',script+'<script src="assets/application-model.js')
+    FIXTURE.write_text(source)
 
-def login(b):
-    b.script("document.getElementById('account-login').click();")
-    wait(b, "!document.getElementById('google-connect').disabled")
-    b.script("document.getElementById('google-connect').click();")
-    wait(b, "!document.getElementById('account-signout').hidden&&!document.getElementById('login-dialog').open&&!document.querySelector('[data-private-fields]').disabled")
+def login(b, email='owner@example.test'):
+    b.script("document.getElementById('account-login').click();document.getElementById('login-email').value="+json.dumps(email)+";document.getElementById('login-password').value='synthetic-password';document.getElementById('login-form').dispatchEvent(new Event('submit',{cancelable:true}));")
+    wait(b, "!document.getElementById('login-dialog').open&&!document.getElementById('account-signout').hidden&&!document.querySelector('[data-private-fields]').hidden")
 
 def reveal(b):
-    b.script('location.hash=' + json.dumps(ROW) + ";window.dispatchEvent(new HashChangeEvent('hashchange'));")
+    b.script("location.hash='#application-daad-11011';window.dispatchEvent(new HashChangeEvent('hashchange'));")
     wait(b, "document.querySelectorAll('#application-daad-11011 [data-document-row]').length===9")
 
-def upload(b, target, name='Final CV.pdf', wait_for_save=True):
-    b.script(target + ";const dt=new DataTransfer();dt.items.add(new File(['%PDF-1.4\\nTest document']," + json.dumps(name) + ",{type:'application/pdf'}));const input=document.getElementById('document-file');input.files=dt.files;input.dispatchEvent(new Event('change'));")
-    if wait_for_save:
-        wait(b, "document.getElementById('upload-message').textContent.includes('uploaded and attached')")
+def upload(b, target, name='Final CV.pdf', complete=True):
+    b.script(target + ";const dt=new DataTransfer();dt.items.add(new File(['%PDF-1.4\\nTest document'],"+json.dumps(name)+",{type:'application/pdf'}));const input=document.getElementById('document-file');input.files=dt.files;input.dispatchEvent(new Event('change'));")
+    if complete:
+        wait(b, "document.getElementById('upload-message').textContent.includes('uploaded and attached')&&!document.getElementById('sync-workspace').disabled")
 
 def download_text(b):
     return async_script(b, "const done=arguments[arguments.length-1];window.__download.text().then(done);")
 
 def sync(b):
-    wait(b, "!document.getElementById('sync-drive').disabled")
-    b.script("document.getElementById('sync-drive').click();")
-    wait(b, "document.getElementById('save-status').textContent==='Up to date with your Google Drive.'")
+    wait(b,"!document.getElementById('sync-workspace').disabled")
+    b.script("document.getElementById('sync-workspace').click();")
+    wait(b,"document.getElementById('save-status').textContent==='Up to date with the shared workspace.'")
 
-def wait_for_login_redirect(b):
-    # Async scripts are cancelled by a document navigation. Poll the driver
-    # across the redirect, then check the modal in the settled destination.
-    for _ in range(100):
-        url = b.call('WebDriver:GetCurrentURL')
-        if isinstance(url, dict):
-            url = url.get('value', '')
-        if url.endswith('/databases.html#login'):
-            if b.script("return document.readyState==='complete'&&!!document.getElementById('login-dialog')?.open;"):
-                return
-        time.sleep(0.1)
-    raise AssertionError('The old login link did not open Databases sign-in')
+def restore(b, data):
+    b.script("const dt=new DataTransfer();dt.items.add(new File(["+json.dumps(json.dumps(data))+"],'progress.json',{type:'application/json'}));const input=document.getElementById('backup-file');input.files=dt.files;input.dispatchEvent(new Event('change'));")
 
-b = Browser()
+b=Browser()
 try:
-    b.call('WebDriver:SetWindowRect', {'width': 1440, 'height': 1080})
-    b.call('WebDriver:Navigate', {'url': BASE + 'databases.html'})
-    b.script("localStorage.removeItem('ecosapien-google-client-id');localStorage.setItem('ecosapien-all-applications-v1',JSON.stringify({version:1,progress:{'daad-11011':{saved:true,stage:'Preparing',notes:'Private legacy note'}}}));")
-    b.call('WebDriver:Refresh')
-    b.check('signed-out dashboard hides private progress and preserves the legacy copy', "return document.getElementById('stat-tracked').textContent==='—'&&[...document.querySelectorAll('[data-notes]')].every(e=>e.value==='')&&document.querySelector('[data-private-fields]').hidden&&!document.getElementById('legacy-notice').hidden;")
-    b.check('149 combined routes are browsable with progress and upload controls', "return document.getElementById('database-count').textContent==='149 matching programmes · 12 shown'&&document.querySelectorAll('[data-upload-start]').length===12&&document.querySelectorAll('[data-readiness]').length===12;")
+    b.call('WebDriver:SetWindowRect', {'width':1440,'height':1080})
+    b.call('WebDriver:Navigate', {'url':BASE+'databases.html'})
+    b.check('unconfigured public page is usable and private statistics are empty', "return document.getElementById('stat-tracked').textContent==='—'&&document.getElementById('database-count').textContent==='149 matching programmes · 12 shown';")
     b.script("document.getElementById('account-login').click();")
-    b.check('missing client ID is explained on Databases', "return document.getElementById('login-dialog').open&&document.getElementById('google-connect').disabled&&document.getElementById('google-setup').open;")
-    b.screenshot('ma-databases-google-setup.png')
-    fixture(b)
-    b.script("document.getElementById('google-client-id').value='123456789012-test-client.apps.googleusercontent.com';document.getElementById('google-config-form').dispatchEvent(new Event('submit',{cancelable:true}));")
-    wait(b, "!document.getElementById('google-connect').disabled")
-    b.script("document.getElementById('google-connect').click();")
-    wait(b, "!document.getElementById('login-dialog').open")
-    b.check('Google account shown and nine shared uploads unlocked', "return document.getElementById('account-title').textContent==='account-a@example.test'&&!document.querySelector('[data-private-fields]').disabled&&document.querySelectorAll('[data-library-upload]').length===9;")
+    b.check('incomplete connection is explained without accepting a password', "return document.getElementById('login-dialog').open&&document.getElementById('login-submit').disabled&&!document.getElementById('login-setup-note').hidden;")
+    b.script("localStorage.setItem('ecosapien-all-applications-v1',JSON.stringify({version:1,progress:{'daad-11011':{saved:true,stage:'Preparing',notes:'Private legacy note'}}}));")
+    fixture()
+    b.call('WebDriver:Navigate', {'url':BASE+'tools/tests/workspace.generated.html'})
+    b.check('private legacy notes are not loaded before sign-in', "return !document.getElementById('legacy-notice').hidden&&[...document.querySelectorAll('[data-notes]')].every(e=>e.value==='')&&document.getElementById('workspace-updates').hidden;")
+    b.script("document.getElementById('account-login').click();")
+    b.screenshot('ma-supabase-login.png')
+    login(b)
     reveal(b)
+    b.check('owner has shared progress, resources and member controls', "return document.getElementById('account-title').textContent==='Synthetic shared workspace'&&!document.getElementById('invite-controls').hidden&&document.querySelectorAll('[data-library-upload]').length===9;")
     b.script("window.__mock.failSave='before';document.getElementById('import-browser').click();")
-    wait(b, "document.getElementById('save-status').textContent.includes('not been confirmed saved')")
-    b.check('failed migration retains its recoverable browser copy', "return localStorage.getItem('ecosapien-all-applications-v1').includes('Private legacy note')&&document.querySelector('#application-daad-11011 [data-notes]').value==='Private legacy note';")
+    wait(b,"document.getElementById('save-status').textContent.includes('Save not yet confirmed')")
+    b.check('failed migration keeps the old browser copy', "return localStorage.getItem('ecosapien-all-applications-v1').includes('Private legacy note');")
     b.script("document.getElementById('import-browser').click();")
-    wait(b, "document.getElementById('legacy-notice').hidden")
-    b.check('durable migration preserves the programme ID and clears plaintext', "return localStorage.getItem('ecosapien-all-applications-v1')===null&&document.getElementById('stat-tracked').textContent==='1';")
-    upload(b, "document.querySelector('#application-daad-11011 [data-upload-start]').click()")
-    b.check('row upload attaches the programme CV and updates readiness', "const c=document.getElementById('application-daad-11011');return c.querySelector('[data-document-row=cv] select').value==='Ready'&&c.querySelector('[data-document-row=cv] input').value.startsWith('https://drive.google.com/file/d/')&&c.querySelector('[data-count]').textContent==='1 / 9 ready'&&!c.querySelector('[data-download]').disabled;")
+    wait(b,"document.getElementById('legacy-notice').hidden")
+    b.check('confirmed migration removes local plaintext and tracks the application', "return localStorage.getItem('ecosapien-all-applications-v1')===null&&document.getElementById('stat-tracked').textContent==='1';")
+    upload(b,"document.querySelector('#application-daad-11011 [data-upload-start]').click()")
+    b.check('programme upload updates readiness and attribution', "return document.querySelector('#application-daad-11011 [data-count]').textContent==='1 / 9 ready'&&window.__mock.state.files[0].record_id==='daad-11011'&&window.__mock.state.files[0].slot==='cv'&&document.getElementById('activity-list').textContent.includes('Test owner uploaded Final CV.pdf');")
     b.script("document.querySelector('#application-daad-11011 [data-download]').click();")
-    wait(b, "window.__downloadName==='Final CV.pdf'")
-    assert download_text(b) == '%PDF-1.4\nTest document'
-    print('PASS selected document downloads with original bytes and name', flush=True)
-    upload(b, "document.querySelector('[data-library-upload=transcript]').click()", 'Transcript.pdf')
-    b.check('shared transcript supplies a default without inventing completed work', "return document.getElementById('library-transcript').value===document.querySelector('#application-daad-11011 [data-document-row=transcript] [data-document-open]').href&&document.querySelector('#application-daad-11011 [data-count]').textContent==='1 / 9 ready';")
-    upload(b, "document.querySelector('#application-daad-11011 [data-document-row=cv] [data-document-upload]').click()", 'Revised CV.pdf')
-    b.check('replacements preserve earlier files inside the correct slot folder', "const f=[...window.__mock.files.values()].filter(f=>f.appProperties?.eco_slot==='cv');return f.length===2&&f[0].parents[0]===f[1].parents[0]&&window.__mock.files.get(f[0].parents[0]).appProperties.eco_kind==='slot-cv';")
+    wait(b,"window.__downloadName==='Final CV.pdf'")
+    assert download_text(b)=='%PDF-1.4\nTest document'
+    print('PASS private file download preserves original bytes and filename',flush=True)
+    upload(b,"document.querySelector('[data-library-upload=transcript]').click()", 'Transcript.pdf')
+    b.check('shared file fallback does not mark unfinished slots ready', "return document.querySelector('#application-daad-11011 [data-document-row=transcript] [data-file-origin]').textContent==='Shared: Transcript.pdf'&&document.querySelector('#application-daad-11011 [data-count]').textContent==='1 / 9 ready';")
+    upload(b,"document.querySelector('#application-daad-11011 [data-document-row=cv] [data-document-upload]').click()", 'Revised CV.pdf')
+    b.script("document.querySelector('#application-daad-11011 [data-versions]').click();")
+    b.check('version history retains old and new documents', "return document.getElementById('versions-dialog').open&&document.querySelectorAll('#versions-list>li').length===2&&document.getElementById('versions-list').textContent.includes('Final CV.pdf')&&document.getElementById('versions-list').textContent.includes('Revised CV.pdf · Current');")
+    b.script("[...document.querySelectorAll('#versions-list button')].find(e=>e.textContent==='Use this version').click();document.getElementById('close-versions').click();")
+    sync(b)
+    b.check('selecting an older version updates only the file reference', "const id=window.__mock.state.fields.find(f=>f.record_id==='daad-11011'&&f.field==='documents.cv.file_id').value;return window.__mock.state.files.find(f=>f.id===id).filename==='Final CV.pdf'&&window.__mock.state.files.length===3;")
     b.script("for(const key of ['employment','reference','aps']){const s=document.querySelector('#application-daad-11011 [data-document-row='+key+'] select');s.value='Not required';s.dispatchEvent(new Event('change'));}")
-    b.check('progress bar and donut exclude slots marked Not required', "return document.querySelector('#application-daad-11011 [data-percent]').textContent==='17%'&&document.querySelector('#application-daad-11011 [data-count]').textContent==='1 / 6 ready'&&document.getElementById('overall-percent').textContent==='17%';")
-    b.script("const n=document.querySelector('#application-daad-11011 [data-notes]');n.value='=HYPERLINK(\"test\") Private test note';n.dispatchEvent(new Event('input'));const d=document.querySelector('#application-daad-11011 [data-deadline]');const date=new Date(ApplicationModel.today()+'T12:00:00Z');date.setUTCDate(date.getUTCDate()+10);d.value=date.toISOString().slice(0,10);d.dispatchEvent(new Event('change'));document.querySelector('#application-daad-11011 [data-deadline-confirmed]').click();")
+    b.check('progress excludes documents marked Not required', "return document.querySelector('#application-daad-11011 [data-percent]').textContent==='17%'&&document.getElementById('overall-percent').textContent==='17%';")
     sync(b)
+    b.script("const n=document.querySelector('#application-daad-11011 [data-notes]');n.value='Private concurrent note';n.dispatchEvent(new Event('input'));window.__mock.setField('daad-11011','stage','Submitted');window.__mock.activity('progress_updated','daad-11011',{changes:[]},null,window.__mock.state.members.find(m=>m.actor_kind==='agent'));")
+    wait(b,"document.querySelector('#application-daad-11011 [data-stage]').value==='Submitted'")
+    wait(b,"document.getElementById('save-status').textContent==='All changes saved to the shared workspace.'")
+    b.check('agent updates arrive without erasing another field being edited', "return document.querySelector('#application-daad-11011 [data-notes]').value==='Private concurrent note'&&document.getElementById('activity-list').textContent.includes('Application agent · Agent updated');")
+    b.script("window.__mock.failSave='after';const n=document.querySelector('#application-daad-11011 [data-notes]');n.value='=HYPERLINK(\"test\") Private test note';n.dispatchEvent(new Event('input'));")
+    wait(b,"document.getElementById('save-status').textContent.includes('Save not yet confirmed')")
+    b.script("window.__lastRequest=window.__mock.calls.filter(c=>c.name==='eco_save').at(-1).args.p_request;document.getElementById('retry-save').click();")
+    wait(b,"document.getElementById('save-status').textContent==='All changes saved to the shared workspace.'")
+    b.check('lost save response retries with the same identifier', "return window.__lastRequest===window.__mock.calls.filter(c=>c.name==='eco_save').at(-1).args.p_request;")
     b.script("document.getElementById('backup-progress').click();")
-    backup = json.loads(download_text(b))
-    assert backup['version'] == 3 and 'access_token' not in json.dumps(backup)
-    assert backup['progress']['daad-11011']['deadline_confirmed'] is True
-    b.check('private state and tokens never enter persistent browser storage', "return Object.keys(localStorage).every(k=>!k.includes('ecosapien-all-applications'))&&!JSON.stringify(localStorage).includes('Private test note')&&sessionStorage.length===0;")
+    backup=json.loads(download_text(b))
+    assert backup['version']==4 and backup['workspace_id']==b.script('return window.__mock.config.workspaceId;')
+    assert backup['progress']['daad-11011']['documents']['cv']['file_id']
+    assert 'access_token' not in json.dumps(backup) and 'synthetic-session-only' not in json.dumps(backup)
+    foreign=json.loads(json.dumps(backup));foreign['workspace_id']='dddddddd-dddd-4ddd-addd-dddddddddddd'
+    restore(b,foreign)
+    wait(b,"document.getElementById('save-status').textContent.includes('different workspace')")
+    b.check('a foreign-workspace backup is rejected before changing progress', "return document.querySelector('#application-daad-11011 [data-notes]').value.includes('Private test note');")
+    b.check('tokens, notes and upload URLs are not persisted in browser storage', "return !JSON.stringify(localStorage).includes('Private test note')&&!Object.keys(localStorage).some(k=>k.startsWith('sb-')||k.startsWith('tus::'))&&sessionStorage.length===0;")
     b.script("document.getElementById('database-filters').reset();")
-    wait(b, "document.getElementById('database-count').textContent.startsWith('149 ')")
+    wait(b,"document.getElementById('database-count').textContent.startsWith('149 ')")
     b.script("document.getElementById('export-csv').click();")
-    csv = download_text(b)
-    assert "'=HYPERLINK" in csv and 'CV status' in csv and 'https://drive.google.com/file/d/' in csv
-    print('PASS private backup and CSV contain file links and deadlines, exclude tokens and escape formulas', flush=True)
-    snapshot = b.script('return window.__mock.export();')
-    b.call('WebDriver:Refresh')
-    b.check('reload requires fresh Google authorization', "return document.getElementById('stat-tracked').textContent==='—'&&[...document.querySelectorAll('[data-notes]')].every(e=>e.value==='');")
-    fixture(b, snapshot)
-    login(b)
-    reveal(b)
-    b.check('reload restores notes, files and confirmed deadline from Drive', "return document.querySelector('#application-daad-11011 [data-notes]').value.includes('Private test note')&&document.querySelector('#application-daad-11011 [data-document-row=cv] select').value==='Ready'&&document.querySelector('#application-daad-11011 [data-deadline-confirmed]').checked;")
-    b.script("const i=document.querySelector('#application-daad-11011 [data-document-row=cv] input');i.value='https://drive.google.com.evil.example/file';i.dispatchEvent(new Event('change'));")
-    b.check('unsafe pasted file URLs are rejected', "return !document.querySelector('#application-daad-11011 [data-document-row=cv] input').validity.valid;")
-    sync(b)
-    b.script("window.__mock.failAuth=true;document.getElementById('sync-drive').click();")
-    wait(b, "document.getElementById('account-login').textContent==='Reconnect to Google'")
-    b.check('expired access locks writes while retaining backup access', "return document.querySelector('[data-private-fields]').disabled&&!document.getElementById('backup-progress').hidden;")
-    login(b)
-
-    # Synthetic backup v2 tests dashboard aggregation; it is never published.
-    b.script("""
-      const date=days=>{const d=new Date(ApplicationModel.today()+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+days);return d.toISOString().slice(0,10);};
-      const docs=n=>Object.fromEntries(ApplicationModel.documentTypes.map(([key],i)=>[key,{status:i<n?'Ready':'Needed',url:''}]));
-      const seed={version:2,progress:{
-        'trier-gemstones':{saved:true,stage:'Submitted',deadline:date(12),deadline_confirmed:true,documents:docs(9)},
-        'art-vienna-art-science':{saved:true,stage:'Preparing',deadline:date(20),deadline_confirmed:true,documents:docs(5)},
-        'art-gothenburg-jewellery':{saved:true,stage:'Check eligibility',deadline:date(40),deadline_confirmed:false,documents:docs(2)},
-        'art-umprum-visual-arts':{saved:true,stage:'Offer received',documents:docs(9)},
-        'art-eka-craft-studies':{saved:true,stage:'Preparing',documents:docs(4)},
-        'art-oslo-material-art':{saved:true,stage:'Not pursuing'},
-        'weimar-media-art':{saved:true,stage:'Unsuccessful'}
-      }};
-      const dt=new DataTransfer();dt.items.add(new File([JSON.stringify(seed)],'progress.json',{type:'application/json'}));const input=document.getElementById('backup-file');input.files=dt.files;input.dispatchEvent(new Event('change'));
-    """)
-    wait(b, "document.getElementById('save-status').textContent==='All changes saved to your Google Drive.'")
-    b.check('combined dashboard separates pending work, submissions, offers and closed routes', "return document.getElementById('stat-tracked').textContent==='8'&&document.getElementById('stat-preparing').textContent==='4'&&document.getElementById('stat-soon').textContent==='2'&&document.getElementById('stat-submitted').textContent==='2'&&document.getElementById('stat-offers').textContent==='1 offers received';")
-    b.script("document.querySelector('[data-overview-filter=submitted]').click();")
-    wait(b, "document.querySelectorAll('#database-list .application-record').length===2")
-    b.check('Submitted / offers total opens exactly those routes', "return [...document.querySelectorAll('#database-list [data-stage]')].every(e=>['Submitted','Offer received'].includes(e.value));")
-    b.script("document.getElementById('db-search').value='nothing matches';document.getElementById('db-search').dispatchEvent(new Event('input'));const button=[...document.querySelectorAll('#deadline-chart button')].find(e=>Number(e.querySelector('.month-count').textContent)>0);window.__monthExpected=Number(button.querySelector('.month-count').textContent);button.click();")
-    wait(b, "document.querySelectorAll('#database-list .application-record').length===window.__monthExpected")
-    b.check('month chart clears unrelated filters and excludes submitted routes', "return document.getElementById('db-search').value===''&&[...document.querySelectorAll('#database-list [data-stage]')].every(e=>['Preparing','Check eligibility','Not started'].includes(e.value));")
-    b.script("document.getElementById('db-collection').value='masters';document.getElementById('db-collection').dispatchEvent(new Event('change'));[...document.querySelectorAll('#stage-pipeline button')].find(e=>e.textContent.includes('Check eligibility')).click();")
-    wait(b, "document.querySelectorAll('#database-list .application-record').length===1")
-    b.check('stage filters match global totals after earlier filters', "return document.getElementById('db-collection').value===''&&document.querySelector('#database-list [data-stage]').value==='Check eligibility';")
-    b.script("document.querySelector('[data-overview-filter=tracked]').click();document.getElementById('overview').scrollIntoView();")
-    b.screenshot('ma-databases-overview-desktop.png')
-    b.script("document.getElementById('application-tracker').scrollIntoView();")
-    b.screenshot('ma-databases-tracker-desktop.png')
-    b.call('WebDriver:SetWindowRect', {'width': 390, 'height': 844})
-    b.check('populated dashboard fits mobile', "return document.documentElement.scrollWidth<=window.innerWidth;")
-    b.script("document.getElementById('overview').scrollIntoView();")
-    b.screenshot('ma-databases-overview-mobile.png')
-    reveal(b)
-    b.script("document.getElementById('application-daad-11011').scrollIntoView();")
-    b.check('expanded checklist fits mobile', "return document.documentElement.scrollWidth<=window.innerWidth;")
-    b.screenshot('ma-databases-files-mobile.png')
-    b.script("document.getElementById('resources').scrollIntoView();")
-    b.check('shared resources fit mobile', "return document.documentElement.scrollWidth<=window.innerWidth;")
-    b.script("window.__downloadName='';window.__mock.holdDownload=true;document.querySelector('#application-daad-11011 [data-download]').click();")
-    wait(b, "!!window.__mock.releaseDownload")
-    b.script("document.getElementById('account-signout').click();window.__mock.releaseDownload();window.__mock.holdDownload=false;")
-    b.check('sign-out scrubs private fields and file links and aborts a download', "return [...document.querySelectorAll('[data-notes],[data-folder],[data-library-document],[data-document-url]')].every(e=>e.value==='')&&[...document.querySelectorAll('[data-document-open],[data-open-file],[data-open-folder],[data-library-open],#drive-upload')].every(e=>!e.hasAttribute('href'))&&document.getElementById('stat-tracked').textContent==='—'&&window.__downloadName===''&&window.__mock.downloadSignal.aborted;")
-    b.script("window.__account='account-b';")
-    login(b)
-    b.check('different accounts cannot see each other’s progress', "return document.getElementById('account-title').textContent==='account-b@example.test'&&document.getElementById('stat-tracked').textContent==='0'&&[...document.querySelectorAll('[data-notes]')].every(e=>e.value==='');")
-    reveal(b)
+    csv=download_text(b)
+    assert "'=HYPERLINK" in csv and 'CV private file ID' in csv
+    print('PASS backup and CSV retain private references without tokens or formula injection',flush=True)
+    b.script("document.getElementById('invite-email').value='new@example.test';document.getElementById('invite-name').value='New member';document.getElementById('invite-form').dispatchEvent(new Event('submit',{cancelable:true}));")
+    wait(b,"document.getElementById('invitation-list').textContent.includes('new@example.test')")
+    b.check('invitation clearly states that it does not send email', "return document.getElementById('member-message').textContent.includes('No invitation email was sent');")
     b.script("window.__mock.holdUpload=true;")
-    upload(b, "document.querySelector('#application-daad-11011 [data-upload-start]').click()", 'Cancelled.pdf', False)
-    wait(b, "!!window.__mock.releaseUpload")
-    b.script("document.getElementById('account-signout').click();window.__mock.releaseUpload();window.__mock.holdUpload=false;")
-    b.check('late upload completion cannot restore signed-out progress', "return document.getElementById('upload-notice').hidden&&[...document.querySelectorAll('[data-document-url]')].every(e=>e.value==='');")
-    b.script("window.__holdAuth=true;document.getElementById('account-login').click();")
-    wait(b, "!document.getElementById('google-connect').disabled")
-    b.script("document.getElementById('google-connect').click();document.getElementById('account-signout').click();window.__oauthCallback({access_token:'account-a',expires_in:3600,scope:DriveWorkspace.scope});")
-    b.check('late OAuth callback cannot undo sign-out', "return document.getElementById('account-signout').hidden&&document.querySelector('[data-private-fields]').hidden;")
-    b.check('account, upload, download and tracker flows have no uncaught errors', "return window.__errors.length===0;")
-    b.script("window.__holdAuth=false;document.getElementById('account-login').click();")
-    b.check('login dialog fits mobile', "const d=document.getElementById('login-dialog').getBoundingClientRect();return d.left>=0&&d.right<=innerWidth&&d.height<=innerHeight;")
-    b.script("document.getElementById('close-login').click();localStorage.removeItem('ecosapien-google-client-id');")
-
-    b.call('WebDriver:Navigate', {'url': BASE + 'all-applications.html'})
-    b.check('All applications now contains public research and Databases links only', "return !document.getElementById('login-dialog')&&!document.getElementById('account-bar')&&!document.querySelector('[data-private-fields]')&&document.querySelectorAll('.programme-card').length===128&&document.querySelectorAll('a[href^=\"databases.html#application-\"]').length===128;")
-    b.script("document.querySelector('[data-preset=all]').click();document.getElementById('show-all').click();")
-    b.check('all 128 master routes still browse and filter', "return document.querySelectorAll('.programme-card:not([hidden])').length===128;")
-    b.script("const i=document.getElementById('intake');i.value='Winter 2026/27';i.dispatchEvent(new Event('change'));")
-    b.check('winter deadline finding remains intact', "return !document.getElementById('no-results').hidden&&document.getElementById('empty-explanation').textContent.includes('30 September');")
-    b.call('WebDriver:Navigate', {'url': BASE + 'all-applications.html#login'})
-    wait_for_login_redirect(b)
-    print('PASS old login links redirect to Databases', flush=True)
-    b.call('WebDriver:Navigate', {'url': (Path(__file__).resolve().parents[2] / 'all-applications-offline.html').as_uri()})
-    b.check('offline research filters and live Databases links remain available', "return !document.getElementById('filters').hidden&&document.querySelectorAll('script[src],link[rel=stylesheet]').length===0&&!document.getElementById('login-dialog')&&!!document.querySelector('a[href^=\"https://www.ecosapien.de/databases.html\"]');")
-    for page in ('google-drive-setup.html', 'application-privacy.html', 'index.html', 'studio.html', 'applications.html', '404.html'):
-        b.call('WebDriver:Navigate', {'url': BASE + page})
-        b.check(page + ' has a separate Databases tab and fits mobile', "const links=[...document.querySelectorAll('nav a')];return links.some(a=>a.textContent==='Art application')&&links.some(a=>a.textContent==='All applications')&&links.some(a=>a.textContent==='Databases'&&new URL(a.href).pathname==='/databases.html')&&!links.some(a=>a.textContent==='Login')&&document.documentElement.scrollWidth<=innerWidth;")
-        if page == 'applications.html':
-            b.check('all art routes link to stable dashboard entries', "return document.querySelectorAll('.database-link').length===24&&document.querySelector('#programme-1 .database-link').getAttribute('href')==='databases.html#application-trier-gemstones';")
-    print('All mocked dashboard checks passed. Real Google consent still needs a client ID.', flush=True)
+    upload(b,"document.querySelector('[data-library-upload=degree]').click()", 'Cancelled.pdf',False)
+    wait(b,"!document.getElementById('cancel-upload').hidden")
+    b.script("document.getElementById('cancel-upload').click();")
+    wait(b,"document.getElementById('upload-message').textContent.includes('Upload cancelled')")
+    b.check('cancelled upload never marks a document complete', "return !window.__mock.state.files.some(f=>f.filename==='Cancelled.pdf');")
+    b.script("window.__mock.holdUpload=false;")
+    # Version 2 imports preserve unrelated progress and exercise combined charts.
+    seed={'version':2,'progress':{
+      'trier-gemstones':{'saved':True,'stage':'Submitted'},
+      'art-vienna-art-science':{'saved':True,'stage':'Preparing','deadline':'2027-02-01','deadline_confirmed':True},
+      'art-umprum-visual-arts':{'saved':True,'stage':'Offer received'},
+      'weimar-media-art':{'saved':True,'stage':'Unsuccessful'}
+    }}
+    restore(b,seed)
+    wait(b,"document.getElementById('save-status').textContent==='All changes saved to the shared workspace.'")
+    b.check('combined art and masters tracker counts stages correctly', "return document.getElementById('stat-tracked').textContent==='5'&&document.getElementById('stat-submitted').textContent==='3'&&document.getElementById('stat-offers').textContent==='1 offers received';")
+    b.script("document.querySelector('[data-overview-filter=submitted]').click();")
+    wait(b,"document.querySelectorAll('#database-list .application-record').length===3")
+    b.check('clicking chart totals filters the application list', "return [...document.querySelectorAll('#database-list [data-stage]')].every(e=>['Submitted','Offer received'].includes(e.value));")
+    b.script("document.getElementById('overview').scrollIntoView();")
+    b.screenshot('ma-supabase-overview.png')
+    b.call('WebDriver:SetWindowRect', {'width':540,'height':900})
+    b.check('dashboard fits a narrow window', "return document.documentElement.scrollWidth<=window.innerWidth;")
+    b.script("document.getElementById('workspace-updates').scrollIntoView();")
+    b.screenshot('ma-supabase-activity-mobile.png')
+    b.call('WebDriver:SetWindowRect', {'width':1440,'height':1080})
+    b.script("document.getElementById('account-signout').click();")
+    wait(b,"document.getElementById('stat-tracked').textContent==='—'")
+    b.check('sign-out clears notes, filenames, activity, members and dialogs', "return [...document.querySelectorAll('[data-notes]')].every(e=>e.value==='')&&document.getElementById('activity-list').childElementCount===0&&document.getElementById('member-list').childElementCount===0&&document.getElementById('versions-list').childElementCount===0&&!document.body.innerText.includes('Final CV.pdf');")
+    login(b,'viewer@example.test')
+    reveal(b)
+    b.check('viewer can download and inspect history but cannot edit or invite', "return document.querySelector('#application-daad-11011 [data-upload-start]').disabled&&document.querySelector('#application-daad-11011 [data-notes]').disabled&&!document.querySelector('#application-daad-11011 [data-download]').disabled&&document.getElementById('invite-controls').hidden&&document.getElementById('restore-progress').hidden;")
+    b.script("window.__mock.revoked=true;document.getElementById('sync-workspace').click();")
+    wait(b,"document.getElementById('stat-tracked').textContent==='—'")
+    b.check('revoked membership immediately clears the private UI on refresh', "return document.getElementById('account-signout').hidden&&document.getElementById('activity-list').childElementCount===0&&document.getElementById('save-status').textContent.includes('access needs to be checked');")
+    b.script("window.__mock.revoked=false;window.__mock.holdAuth=true;document.getElementById('account-login').click();document.getElementById('login-email').value='owner@example.test';document.getElementById('login-password').value='synthetic-password';document.getElementById('login-form').dispatchEvent(new Event('submit',{cancelable:true}));")
+    wait(b,"!!window.__mock.releaseAuth")
+    b.script("document.getElementById('account-signout').click();window.__mock.releaseAuth();")
+    time.sleep(.3)
+    b.check('late sign-in cannot repopulate a signed-out workspace', "return document.getElementById('stat-tracked').textContent==='—'&&document.getElementById('account-signout').hidden&&window.__mock.session===null;")
+    b.check('no uncaught browser exceptions', "return window.__errors.length===0;")
+    b.call('WebDriver:Navigate', {'url':BASE+'all-applications.html'})
+    b.check('public masters research has no account window', "return !document.getElementById('login-dialog')&&!!document.querySelector('a[href=\"databases.html\"]');")
+    b.call('WebDriver:Navigate', {'url':BASE+'applications.html'})
+    b.check('art research still links to the shared dashboard', "return document.querySelectorAll('.database-link').length===24;")
+    print('All Supabase workspace browser checks passed.',flush=True)
 finally:
+    FIXTURE.unlink(missing_ok=True)
     b.call('WebDriver:DeleteSession')
-    b.sock.close()
