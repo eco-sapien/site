@@ -336,6 +336,10 @@
   $('show-all').addEventListener('click', () => { limit=records.length; render(); });
 
   function revealHash() {
+    if (location.hash === '#login') {
+      if (!account.offline) account.login();
+      return;
+    }
     const id = location.hash.slice(1).replace(/^route-/, '');
     if (!known.has(id)) return;
     resetForm(); $('scope').value='all'; currentPreset=''; limit=records.length; render();
@@ -425,6 +429,11 @@
     }
   });
   account.render();
+  $('nav-login').addEventListener('click', event => {
+    if (account.offline) return;
+    event.preventDefault();
+    account.login();
+  });
   $('save-status').textContent=account.offline?'Offline research copy. Open the live website for private uploads and progress.':'Sign in to manage your files and progress privately in Google Drive.';
   $('saved-count').textContent=records.filter(r=>getProgress(r.id).saved).length;
   render(); revealHash();
