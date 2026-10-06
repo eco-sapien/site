@@ -22,7 +22,7 @@ def wait(b, expression):
       const tick=()=>{try{if(EXPRESSION)return done(true);}catch{}if(++count>200)return done((document.getElementById('save-status')?.textContent||'')+' / '+(document.getElementById('login-message')?.textContent||'')+' / '+JSON.stringify(window.__errors));setTimeout(tick,50);};tick();""".replace('EXPRESSION', expression))
     assert result is True, result
 
-def fixture(seed=None):
+def fixture(seed=None, unconfigured=False):
     source = (ROOT/'databases.html').read_text()
     script = """<script src="tools/tests/mock_supabase.js"></script><script>
       window.__mock=createSupabaseMock(SEED);window.ECOSAPIEN_SUPABASE=window.__mock.config;window.EcoCloudSDK=window.__mock.sdk;
@@ -30,6 +30,8 @@ def fixture(seed=None):
       window.confirm=()=>true;window.__originalCreate=URL.createObjectURL;URL.createObjectURL=blob=>{window.__download=blob;return window.__originalCreate(blob);};
       window.__anchorClick=HTMLAnchorElement.prototype.click;HTMLAnchorElement.prototype.click=function(){if(this.download){window.__downloadName=this.download;return;}return window.__anchorClick.call(this);};
     </script>""".replace('SEED',json.dumps(seed).replace('<','\\u003c'))
+    if unconfigured:
+        script=script.replace('window.ECOSAPIEN_SUPABASE=window.__mock.config;', 'window.ECOSAPIEN_SUPABASE={};')
     source=source.replace('<head>','<head><base href="/">').replace('<script src="assets/application-model.js',script+'<script src="assets/application-model.js')
     FIXTURE.write_text(source)
 
@@ -60,7 +62,8 @@ def restore(b, data):
 b=Browser()
 try:
     b.call('WebDriver:SetWindowRect', {'width':1440,'height':1080})
-    b.call('WebDriver:Navigate', {'url':BASE+'databases.html'})
+    fixture(unconfigured=True)
+    b.call('WebDriver:Navigate', {'url':BASE+'tools/tests/workspace.generated.html'})
     b.check('unconfigured public page is usable and private statistics are empty', "return document.getElementById('stat-tracked').textContent==='—'&&document.getElementById('database-count').textContent==='149 matching programmes · 12 shown';")
     b.script("document.getElementById('account-login').click();")
     b.check('incomplete connection is explained without accepting a password', "return document.getElementById('login-dialog').open&&document.getElementById('login-submit').disabled&&!document.getElementById('login-setup-note').hidden;")

@@ -18,10 +18,17 @@ await db.exec(`
   create table storage.objects(id uuid primary key default gen_random_uuid(),bucket_id text references storage.buckets(id),name text,metadata jsonb,unique(bucket_id,name));
   alter table storage.objects enable row level security;
   grant select,insert,update,delete on storage.objects to anon,authenticated;
+  create function public.rls_auto_enable() returns event_trigger language plpgsql security definer as $$ begin end $$;
+  grant execute on function public.rls_auto_enable() to anon,authenticated;
 `);
-for (const file of ['202610040001_shared_workspace.sql','202610040002_documents_and_updates.sql']) {
+for (const file of ['20261006075729_shared_workspace.sql','20261006075737_documents_and_updates.sql']) {
   await db.exec(await readFile(new URL('../../supabase/migrations/' + file, import.meta.url), 'utf8'));
 }
+for (const role of ['anon','authenticated']) {
+  assert.equal((await db.query("select has_function_privilege($1,'public.rls_auto_enable()','execute') as allowed",[role])).rows[0].allowed,false);
+}
+assert.ok((await db.query("select to_regprocedure('public.rls_auto_enable()') as helper")).rows[0].helper);
+console.log('PASS administrative auto-RLS helper remains installed but cannot be called by website clients');
 const workspace = randomUUID(), otherWorkspace = randomUUID();
 const owner = randomUUID(), editor = randomUUID(), viewer = randomUUID(), stranger = randomUUID(), otherOwner = randomUUID(), agent = randomUUID();
 for (const [id,email,confirmed] of [[owner,'owner@example.test',true],[editor,'editor@example.test',true],[viewer,'viewer@example.test',true],[stranger,'stranger@example.test',false],[otherOwner,'other@example.test',true],[agent,'agent@example.test',true]]) {
